@@ -29,6 +29,7 @@ jobs:
         brew install freetype imagemagick
     - name: Build Summary JSON
       run: |
+        python3 update_oka.py
         python3 update_mmy.py
         python3 update_isg.py
         python3 update_alert_level.py
