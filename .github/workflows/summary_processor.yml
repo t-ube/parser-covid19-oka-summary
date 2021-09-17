@@ -32,6 +32,8 @@ jobs:
         python3 update_mmy.py
         python3 update_isg.py
         python3 update_military_us.py
+        python3 update_vrs.py
+        python3 update_sideeffect.py
     - name: Commit files
       run: |
         git config --local user.email "ube@coder.okinawa.jp"
