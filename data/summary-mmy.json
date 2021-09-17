@@ -1,0 +1,12 @@
+{
+  "hospitalize": 2,
+  "home": 12,
+  "hotel": 13,
+  "institution": 0,
+  "patient": 29,
+  "release": 1808,
+  "total": 1849,
+  "lastupdate": "2021-09-15 00:00:00",
+  "wait": 2,
+  "dead": 12
+}

@@ -1,0 +1,48 @@
+name: Process summary MMY
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0,20,22 * * *'
+
+jobs:
+  build:
+    name: Process summary MMY
+    runs-on: macos-latest
+
+    steps:
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install requests BeautifulSoup4 pandas numpy==1.19.5 requests==2.25.1 fpdf2==2.0.6 PyPDF2=1.26.0
+    - name: Build Summary JSON
+      run: |
+        python3 update_mmy.py
+        python3 update_isg.py
+        python3 update_military_us.py
+    - name: Commit files
+      run: |
+        git config --local user.email "ube@coder.okinawa.jp"
+        git config --local user.name "Tomoyuki UBE"
+        git add data
+        git add pdf
+        git add component
+        git add snapshot
+        git add archive
+        git diff-index --quiet HEAD || git commit -m "[BOT] Update summary"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ steps.extract_branch.outputs.branch }}
