@@ -1,4 +1,4 @@
-name: Process summary MMY
+name: Process summary
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Process summary MMY
+    name: Process summary
     runs-on: macos-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
-        pip install requests BeautifulSoup4 pandas numpy==1.19.5 requests==2.25.1 fpdf2==2.0.6 PyPDF2==1.26.0
+        pip install requests BeautifulSoup4 pandas numpy==1.19.5 requests==2.25.1 fpdf2==2.0.6 PyPDF2==1.26.0 pdfplumber==0.5.25 urllib3==1.26.2
     - name: Build Summary JSON
       run: |
         python3 update_mmy.py
