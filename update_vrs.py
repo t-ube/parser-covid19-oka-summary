@@ -77,6 +77,8 @@ for link in links:
             print('Find houkoku')
         elif 'hukuhan' in file_name:
             print('Find hukuhan')
+        elif 'panf' in file_name:
+            print('Find panf')
         else:
             file_href = href
             find_file = file_name
@@ -114,6 +116,8 @@ for page in pdf.pages:
         df_b = df1.set_index('area', drop=True)
         
         localDf_a = df_a.dropna(how='any')
+        print(localDf_a)
+
         localDf_b = df_b.dropna(how='any')
         #print(localDf_a)
         #print(localDf_b.transpose())
