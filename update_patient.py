@@ -267,18 +267,11 @@ def rejectMissing(file_in,file_out) :
     df = df.sort_values('caseNo', ascending=True)
     df.to_csv(file_out, encoding='utf_8_sig', header=True, index=False)
 
-def removeReturn(file,newfile):
-    rows = []
-    with open(file,'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            for i,v in enumerate(row):
-                row[i] = v.replace('\n', '')
-            rows.append(row)
-    with open(newfile,'w', newline='') as f:
-        writer = csv.writer(f, dialect='excel') 
-        for row in rows:
-            writer.writerow(row)
+def removeReturn(file_in,file_out):
+    df = pd.read_csv(filepath_or_buffer=file_in,
+    encoding="ms932", sep=",")
+    df = df.replace( '\n', '', regex=True)
+    df.to_csv(file_out, encoding='utf_8_sig', header=False, index=False)
 
 def convertKanjiDate2EnDate(kanji_date):
     s = kanji_date
@@ -335,8 +328,7 @@ download_file = Download()
 
 # Format
 removeReturn(download_file,'./csv/remove_return.csv')
-eraseHeader('./csv/remove_return.csv', './csv/nohead_youseisyaitiran.csv')
-rejectMissing('./csv/nohead_youseisyaitiran.csv', './csv/rejected_youseisyaitiran.csv')
+rejectMissing('./csv/remove_return.csv', './csv/rejected_youseisyaitiran.csv')
 dfPat = pd.read_csv('./csv/rejected_youseisyaitiran.csv')
 dfPat['caseNo'] = dfPat['caseNo'].astype('i8')
 
@@ -354,5 +346,4 @@ masterDf = masterDf.sort_values('caseNo', ascending=True)
 print(masterDf)
 masterDf.to_csv('./csv/patient.csv', encoding='utf_8_sig', header=True, index=False)
 os.remove('./csv/rejected_youseisyaitiran.csv')
-os.remove('./csv/nohead_youseisyaitiran.csv')
 os.remove('./csv/remove_return.csv')
