@@ -1,0 +1,24 @@
+name: Trigger update
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/summary-oka.json'
+
+jobs:
+  dispatch-target-updated:
+    strategy:
+      matrix:
+        repo: ['t-ube/okinawa-covid19-map']
+    name: dispatch-target-updated
+    runs-on: ubuntu-latest
+    steps:
+      - name: dispatch target-updated
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: target-updated

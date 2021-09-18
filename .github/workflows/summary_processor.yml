@@ -31,13 +31,13 @@ jobs:
       run: |
         python3 update_patient.py
         python3 calc_patient.py
-        python3 update_oka.py
         python3 update_mmy.py
         python3 update_isg.py
         python3 update_alert_level.py
         python3 update_military_us.py
         python3 update_vrs.py
         python3 update_sideeffect.py
+        python3 update_oka.py
     - name: Commit files
       run: |
         git config --local user.email "ube@coder.okinawa.jp"
