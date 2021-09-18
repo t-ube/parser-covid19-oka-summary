@@ -8,8 +8,9 @@ import group_patient
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-dt_now = datetime.datetime.now()
-dt_20 = dt_now.replace(hour=20, minute=0, second=0)
+dt_now = datetime.datetime.utcnow()
+# UTC+9
+dt_20 = dt_now.replace(hour=11, minute=0, second=0)
 
 if dt_now > dt_20:
     fixdate = dt_now.strftime('%Y-%m-%d')
