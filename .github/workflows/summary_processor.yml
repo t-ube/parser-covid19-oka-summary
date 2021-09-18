@@ -29,6 +29,8 @@ jobs:
         brew install freetype imagemagick
     - name: Build Summary JSON
       run: |
+        python3 update_patient.py
+        python3 calc_patient.py
         python3 update_oka.py
         python3 update_mmy.py
         python3 update_isg.py
@@ -40,6 +42,7 @@ jobs:
       run: |
         git config --local user.email "ube@coder.okinawa.jp"
         git config --local user.name "Tomoyuki UBE"
+        git add csv
         git add data
         git add pdf
         git add component
