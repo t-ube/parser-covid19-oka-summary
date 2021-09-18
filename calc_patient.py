@@ -9,9 +9,15 @@ import group_patient
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 dt_now = datetime.datetime.now()
+dt_20 = dt_now.replace(hour=20, minute=0, second=0)
+
+if dt_now > dt_20:
+    fixdate = dt_now.strftime('%Y-%m-%d')
+else:
+    tempdate = dt_now + datetime.timedelta(days=-1)
+    fixdate = tempdate.strftime('%Y-%m-%d')
 
 firstdate = '2020-02-14'
-fixdate = dt_now.strftime('%Y-%m-%d')
 
 writedata = {}
 writedata['firstdate'] = firstdate
