@@ -17,6 +17,8 @@ else:
     tempdate = dt_now + datetime.timedelta(days=-1)
     fixdate = tempdate.strftime('%Y-%m-%d')
 
+print('fixdate:'+fixdate)
+
 firstdate = '2020-02-14'
 
 writedata = {}
