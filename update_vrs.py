@@ -60,6 +60,44 @@ def convertDateTimeText2DateText(datetimeText):
     tdatetime = datetime.datetime.strptime(datetimeText, '%Y-%m-%d %H:%M:%S')
     return tdatetime.strftime('%Y/%m/%d')
 
+def data2Csv_v1(table):
+    df0 = pd.DataFrame(table, columns=["area", "populat", "once_cnt", "sec_cnt", "once_ratio", "sec_ratio","elder","elder_once_cnt", "elder_sec_cnt", "elder_once_ratio", "elder_sec_ratio"])
+
+    df1 = df0.replace({'%':'',',':''},regex=True)
+
+    df1['lastupdate'] = writedata['lastupdate']
+
+    df_a = df1.set_index('area', drop=False)
+    df_b = df1.set_index('area', drop=True)
+    
+    localDf_a = df_a.dropna(how='any')
+    print(localDf_a)
+
+    localDf_b = df_b.dropna(how='any')
+    #print(localDf_a)
+    #print(localDf_b.transpose())
+    localDf_a.to_csv('./data/vrs-okinawa.csv',encoding="'utf-8-sig",index = False)
+    localDf_b.transpose().to_csv('./data/area-vrs-okinawa.csv',encoding="'utf-8-sig",index = True)
+
+def data2Csv_v2(table):
+    df0 = pd.DataFrame(table, columns=["area", "populat", "once_cnt", "sec_cnt", "once_ratio", "sec_ratio","over12","over12_once_ratio", "over12_sec_ratio"])
+
+    df1 = df0.replace({'%':'',',':''},regex=True)
+
+    df1['lastupdate'] = writedata['lastupdate']
+
+    df_a = df1.set_index('area', drop=False)
+    df_b = df1.set_index('area', drop=True)
+    
+    localDf_a = df_a.dropna(how='any')
+    print(localDf_a)
+
+    localDf_b = df_b.dropna(how='any')
+    #print(localDf_a)
+    #print(localDf_b.transpose())
+    localDf_a.to_csv('./data/vrs-okinawa-v2.csv',encoding="'utf-8-sig",index = False)
+    localDf_b.transpose().to_csv('./data/area-vrs-okinawa-v2.csv',encoding="'utf-8-sig",index = True)
+
 # ファイルのダウンロード
 domain = 'https://www.pref.okinawa.lg.jp'
 url = domain + '/site/chijiko/kohokoryu/covid-19vaccine/sessyujokyo.html'
@@ -106,21 +144,5 @@ for page in pdf.pages:
     })
 
     for table in tables:
-        df0 = pd.DataFrame(table, columns=["area", "populat", "once_cnt", "sec_cnt", "once_ratio", "sec_ratio","elder","elder_once_cnt", "elder_sec_cnt", "elder_once_ratio", "elder_sec_ratio"])
-
-        df1 = df0.replace({'%':'',',':''},regex=True)
-
-        df1['lastupdate'] = writedata['lastupdate']
-
-        df_a = df1.set_index('area', drop=False)
-        df_b = df1.set_index('area', drop=True)
-        
-        localDf_a = df_a.dropna(how='any')
-        print(localDf_a)
-
-        localDf_b = df_b.dropna(how='any')
-        #print(localDf_a)
-        #print(localDf_b.transpose())
-        localDf_a.to_csv('./data/vrs-okinawa.csv',encoding="'utf-8-sig",index = False)
-        localDf_b.transpose().to_csv('./data/area-vrs-okinawa.csv',encoding="'utf-8-sig",index = True)
+        data2Csv_v2(table)
 
