@@ -1,25 +1,25 @@
 {
-  "lastupdate": "2021-09-28 12:00:00",
+  "lastupdate": "2021-09-29 12:00:00",
   "summary": {
-    "infectionTotal": 2714,
-    "release": 2576
+    "infectionTotal": 2721,
+    "release": 2587
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 668
+      "cases": 669
     },
     {
       "name": "キャンプマクトリアス",
-      "cases": 6
+      "cases": 7
     },
     {
       "name": "普天間基地",
-      "cases": 277
+      "cases": 278
     },
     {
       "name": "キャンプハンセン",
-      "cases": 656
+      "cases": 657
     },
     {
       "name": "キャンプキンザー",
@@ -35,7 +35,7 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 157
+      "cases": 158
     },
     {
       "name": "キャンプシュワブ",
@@ -51,29 +51,29 @@
     },
     {
       "name": "その他",
-      "cases": 31
+      "cases": 32
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 107
+      "cases": 108
     }
   ],
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプマクトリアス",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "普天間基地",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプハンセン",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプキンザー",
@@ -89,7 +89,7 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプシュワブ",
@@ -105,7 +105,7 @@
     },
     {
       "name": "その他",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "不明(確認中含む）",
