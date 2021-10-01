@@ -5,6 +5,7 @@ import re
 import datetime
 import os
 import json
+import unicodedata
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,7 +20,8 @@ writedata['total'] = 0
 writedata['lastupdate'] = ''
 
 def convertKanjiDateTime2En(kanji_datetime):
-    s = kanji_datetime.replace('\n', '')
+    s = unicodedata.normalize("NFKC", kanji_datetime)
+    s = s.replace('\n', '')
     find_pattern = r".*令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日.*"
 
     replace_reiwa = lambda date: date.group('r')
