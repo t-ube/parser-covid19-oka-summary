@@ -1,9 +1,9 @@
 {
-  "hospitalize": 3,
-  "home": 5,
+  "hospitalize": 4,
+  "home": 8,
   "hotel": 3,
-  "patient": 11,
-  "release": 1579,
-  "total": 1590,
-  "lastupdate": "2021-10-05 00:00:00"
+  "patient": 15,
+  "release": 1578,
+  "total": 1593,
+  "lastupdate": "2021-10-06 00:00:00"
 }
