@@ -100,6 +100,10 @@ def convertTitle2DateTime(title):
 
     return None
 
+def convertCase498930(case):
+    if case == 498930:
+        return 49930
+    return case
 
 def convertTitle2BeginCase(title):
     s = title.replace('\n', '')
@@ -271,7 +275,7 @@ def getOpenDate(savefile,resource):
             title = h4.get_text()
             date = convertTitle2DateTime(title)
             if date != None:
-                df = df.append({'opendate': date, 'first_case': convertTitle2BeginCase(title), 'last_case': convertTitle2EndCase(title)}, ignore_index=True)
+                df = df.append({'opendate': date, 'first_case': convertCase498930(convertTitle2BeginCase(title)), 'last_case': convertTitle2EndCase(title)}, ignore_index=True)
 
     print(df)
     df.to_csv(savefile,encoding="'utf-8-sig",index = False)
