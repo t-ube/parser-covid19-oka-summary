@@ -1,9 +1,9 @@
 {
-  "lastupdate": "2021-09-29 00:00:00",
-  "pfizer_case": 77,
-  "pfizer_serious": 31,
-  "pfizer_dead": 9,
-  "moderna_case": 9,
+  "lastupdate": "2021-10-20 00:00:00",
+  "pfizer_case": 91,
+  "pfizer_serious": 32,
+  "pfizer_dead": 10,
+  "moderna_case": 11,
   "moderna_serious": 3,
   "moderna_dead": 0
 }
