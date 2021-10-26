@@ -1,7 +1,7 @@
 {
-  "lastupdate": "2021-10-25 12:00:00",
+  "lastupdate": "2021-10-26 12:00:00",
   "summary": {
-    "infectionTotal": 2809,
+    "infectionTotal": 2810,
     "release": 2774
   },
   "total": [
@@ -39,7 +39,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 154
+      "cases": 155
     },
     {
       "name": "トリイ通信施設",
@@ -93,7 +93,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "トリイ通信施設",
