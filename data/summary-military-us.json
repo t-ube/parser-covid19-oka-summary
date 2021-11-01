@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-10-30 12:00:00",
+  "lastupdate": "2021-11-01 12:00:00",
   "summary": {
-    "infectionTotal": 2820,
-    "release": 2808
+    "infectionTotal": 2823,
+    "release": 2809
   },
   "total": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 156
+      "cases": 159
     },
     {
       "name": "トリイ通信施設",
@@ -77,7 +77,7 @@
     },
     {
       "name": "キャンプキンザー",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプフォスター",
@@ -93,7 +93,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 1
+      "cases": 3
     },
     {
       "name": "トリイ通信施設",
