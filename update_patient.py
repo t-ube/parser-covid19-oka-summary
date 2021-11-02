@@ -73,6 +73,19 @@ def convertTitle2DateTime(title):
         tdate = datetime.datetime.strptime(en_date, '%Y-%m-%d')
         return tdate.strftime('%Y-%m-%d')
 
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（県内(?P<b>\d*)例目）.*"
+    m = re.match(find_pattern, s)
+    if m != None:
+        replace_reiwa = lambda date: date.group('r')
+        reiwa = re.sub(find_pattern, replace_reiwa, s)
+        year = str(int(reiwa, 10) + 2018)
+
+        replace_pattern = lambda date: year + '-' + \
+            date.group('m') + '-' + date.group('d')
+        en_date = re.sub(find_pattern, replace_pattern, s)
+        tdate = datetime.datetime.strptime(en_date, '%Y-%m-%d')
+        return tdate.strftime('%Y-%m-%d')
+
     find_pattern = r".*第(?P<n>\d*)報：（県内(?P<b>\d*)例目・(?P<e>\d*)例目）.*"
     m = re.match(find_pattern, s)
     if m != None:
@@ -140,6 +153,13 @@ def convertTitle2BeginCase(title):
         case = re.sub(find_pattern, replace_pattern, s)
         return int(case)
 
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（県内(?P<b>\d*)例目）.*"
+    m = re.match(find_pattern, s)
+    if m != None:
+        replace_pattern = lambda case: case.group('b')
+        case = re.sub(find_pattern, replace_pattern, s)
+        return int(case)
+
     find_pattern = r".*第(?P<n>\d*)報：（県内(?P<b>\d*)例目・(?P<e>\d*)例目）.*"
     m = re.match(find_pattern, s)
     if m != None:
@@ -173,6 +193,7 @@ def convertTitle2BeginCase(title):
         replace_pattern = lambda case: case.group('b')
         case = re.sub(find_pattern, replace_pattern, s)
         return int(case)
+
     
     return None
 
@@ -200,6 +221,13 @@ def convertTitle2EndCase(title):
     m = re.match(find_pattern, s)
     if m != None:
         replace_pattern = lambda case: case.group('e')
+        case = re.sub(find_pattern, replace_pattern, s)
+        return int(case)
+
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（県内(?P<b>\d*)例目）.*"
+    m = re.match(find_pattern, s)
+    if m != None:
+        replace_pattern = lambda case: case.group('b')
         case = re.sub(find_pattern, replace_pattern, s)
         return int(case)
 
