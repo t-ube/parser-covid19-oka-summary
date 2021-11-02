@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-11-01 12:00:00",
+  "lastupdate": "2021-11-02 12:00:00",
   "summary": {
-    "infectionTotal": 2823,
-    "release": 2809
+    "infectionTotal": 2824,
+    "release": 2810
   },
   "total": [
     {
@@ -27,7 +27,7 @@
     },
     {
       "name": "キャンプフォスター",
-      "cases": 415
+      "cases": 416
     },
     {
       "name": "ホワイトビーチ",
@@ -81,7 +81,7 @@
     },
     {
       "name": "キャンプフォスター",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "ホワイトビーチ",
@@ -93,7 +93,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 3
+      "cases": 0
     },
     {
       "name": "トリイ通信施設",
