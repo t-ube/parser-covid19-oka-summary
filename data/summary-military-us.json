@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-11-02 12:00:00",
+  "lastupdate": "2021-11-03 12:00:00",
   "summary": {
     "infectionTotal": 2824,
-    "release": 2810
+    "release": 2813
   },
   "total": [
     {
@@ -81,7 +81,7 @@
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "ホワイトビーチ",
