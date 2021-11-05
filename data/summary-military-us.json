@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-11-04 12:00:00",
+  "lastupdate": "2021-11-05 12:00:00",
   "summary": {
-    "infectionTotal": 2825,
-    "release": 2814
+    "infectionTotal": 2826,
+    "release": 2815
   },
   "total": [
     {
@@ -23,7 +23,7 @@
     },
     {
       "name": "キャンプキンザー",
-      "cases": 172
+      "cases": 173
     },
     {
       "name": "キャンプフォスター",
@@ -61,7 +61,7 @@
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプマクトリアス",
@@ -77,7 +77,7 @@
     },
     {
       "name": "キャンプキンザー",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプフォスター",
