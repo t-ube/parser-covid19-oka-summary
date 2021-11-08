@@ -1,9 +1,9 @@
 {
   "hospitalize": 0,
   "home": 0,
-  "hotel": 1,
-  "patient": 1,
-  "release": 1656,
+  "hotel": 0,
+  "patient": 0,
+  "release": 1657,
   "total": 1657,
-  "lastupdate": "2021-11-06 00:00:00"
+  "lastupdate": "2021-11-08 00:00:00"
 }
