@@ -3,10 +3,10 @@
   "home": 0,
   "hotel": 0,
   "institution": 0,
-  "patient": 0,
+  "patient": 1,
   "release": 1880,
-  "total": 1893,
-  "lastupdate": "2021-11-09 00:00:00",
-  "wait": 0,
+  "total": 1894,
+  "lastupdate": "2021-11-11 00:00:00",
+  "wait": 1,
   "dead": 13
 }
