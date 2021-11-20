@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2021-11-11 12:00:00",
+  "lastupdate": "2021-11-20 12:00:00",
   "summary": {
-    "infectionTotal": 2833,
-    "release": 2826
+    "infectionTotal": 2839,
+    "release": 2828
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 694
+      "cases": 698
     },
     {
       "name": "キャンプマクトリアス",
@@ -15,11 +15,11 @@
     },
     {
       "name": "普天間基地",
-      "cases": 288
+      "cases": 289
     },
     {
       "name": "キャンプハンセン",
-      "cases": 678
+      "cases": 679
     },
     {
       "name": "キャンプキンザー",
@@ -61,7 +61,7 @@
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプマクトリアス",
@@ -69,7 +69,7 @@
     },
     {
       "name": "普天間基地",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプハンセン",
