@@ -83,6 +83,11 @@ for link in links:
             file_href = href
             find_file = file_name
             print('OK:'+find_file)
+        elif 'kensuu' in file_name:
+            print('Find kensuu')
+            file_href = href
+            find_file = file_name
+            print('OK:'+find_file)
         else:
             print('Notfound key')
 

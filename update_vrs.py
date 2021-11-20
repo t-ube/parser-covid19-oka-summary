@@ -115,6 +115,8 @@ for link in links:
             print('Find houkoku')
         elif 'hukuhan' in file_name:
             print('Find hukuhan')
+        elif 'kensuu' in file_name:
+            print('Find kensuu')
         elif 'panf' in file_name:
             print('Find panf')
         else:
