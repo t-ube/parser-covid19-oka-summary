@@ -3,11 +3,11 @@
   "wait": 2,
   "hotel": 5,
   "home": 1,
-  "checkout": 0,
-  "release": 49912,
+  "checkout": 1,
+  "release": 49915,
   "dead": 398,
-  "patient": 18,
+  "patient": 19,
   "severe": 0,
-  "moderate": 2,
-  "lastupdate": "2021-12-03 12:00:00"
+  "moderate": 3,
+  "lastupdate": "2021-12-04 12:00:00"
 }
