@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-12-06 12:00:00",
+  "lastupdate": "2021-12-07 12:00:00",
   "summary": {
-    "infectionTotal": 2860,
-    "release": 2854
+    "infectionTotal": 2861,
+    "release": 2857
   },
   "total": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 163
+      "cases": 164
     },
     {
       "name": "トリイ通信施設",
@@ -61,7 +61,7 @@
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプマクトリアス",
@@ -93,7 +93,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "トリイ通信施設",
