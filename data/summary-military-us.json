@@ -1,7 +1,7 @@
 {
-  "lastupdate": "2021-12-07 12:00:00",
+  "lastupdate": "2021-12-09 12:00:00",
   "summary": {
-    "infectionTotal": 2861,
+    "infectionTotal": 2862,
     "release": 2857
   },
   "total": [
@@ -19,7 +19,7 @@
     },
     {
       "name": "キャンプハンセン",
-      "cases": 687
+      "cases": 688
     },
     {
       "name": "キャンプキンザー",
@@ -73,7 +73,7 @@
     },
     {
       "name": "キャンプハンセン",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプキンザー",
@@ -93,7 +93,7 @@
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "トリイ通信施設",
