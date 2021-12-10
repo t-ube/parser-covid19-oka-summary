@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-12-09 12:00:00",
+  "lastupdate": "2021-12-10 12:00:00",
   "summary": {
     "infectionTotal": 2862,
-    "release": 2857
+    "release": 2858
   },
   "total": [
     {
@@ -73,7 +73,7 @@
     },
     {
       "name": "キャンプハンセン",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプキンザー",
