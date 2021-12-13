@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-12-11 12:00:00",
+  "lastupdate": "2021-12-13 12:00:00",
   "summary": {
-    "infectionTotal": 2862,
-    "release": 2858
+    "infectionTotal": 2866,
+    "release": 2860
   },
   "total": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "name": "キャンプハンセン",
-      "cases": 688
+      "cases": 691
     },
     {
       "name": "キャンプキンザー",
@@ -27,7 +27,7 @@
     },
     {
       "name": "キャンプフォスター",
-      "cases": 418
+      "cases": 419
     },
     {
       "name": "ホワイトビーチ",
