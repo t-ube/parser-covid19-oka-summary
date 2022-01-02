@@ -1,12 +1,12 @@
 {
   "hospitalize": 0,
   "home": 0,
-  "hotel": 4,
+  "hotel": 11,
   "institution": 0,
-  "patient": 6,
+  "patient": 12,
   "release": 1881,
-  "total": 1900,
-  "lastupdate": "2022-01-01 00:00:00",
-  "wait": 2,
+  "total": 1906,
+  "lastupdate": "2022-01-02 00:00:00",
+  "wait": 1,
   "dead": 13
 }
