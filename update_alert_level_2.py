@@ -56,7 +56,7 @@ def convertKanjiDateTime2En(kanji_datetime):
     s = kanji_datetime.replace('\n', '')
     print(s)
     find_pattern = r"^令和(?P<y>\d*)年(?P<m>\d*)月(?P<d>\d*)日(?P<H>\d*)時時点"
-    replace_pattern = lambda date: str(2021) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
+    replace_pattern = lambda date: str(2022) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
     en_datetime = re.sub(find_pattern, replace_pattern, s)
     tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
     en_datetime = tdatetime.strftime('%Y-%m-%d %H:%M:%S')
@@ -133,7 +133,7 @@ for page in pdf.pages:
                 datamapping = True
             elif index == 1 and str(row[2]).find('新規陽性者数') != -1:
                 print(row[3])
-                writedata['alertIndicators']['patients'].append(int(re.sub("\\D", "", row[3])))
+                writedata['alertIndicators']['patients'].append(float(re.findall("\d+\.\d+", row[3])[0]))
             elif index == 2 and str(row[2]).find('病床使用率') != -1:
                 print(row[3])
                 writedata['alertIndicators']['bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
@@ -163,7 +163,7 @@ for page in pdf.pages:
                 if row[3] == '―':
                     writedata['alertIndicators']['predict_tool'].append(None)
                 else:
-                    writedata['alertIndicators']['predict_tool'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+                    writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
 
 if datamapping == False:
     print('failed to mapping')
@@ -176,4 +176,6 @@ elif datetime.datetime.strptime(lastupdate, '%Y-%m-%d %H:%M:%S') < datetime.date
     sys.exit(0)
 else:
     print('skip update')
+    print(lastupdate)
+    print(writedata['lastupdate'])
     sys.exit(0)
