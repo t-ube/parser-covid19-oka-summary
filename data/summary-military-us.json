@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2021-01-05 12:00:00",
+  "lastupdate": "2021-01-06 12:00:00",
   "summary": {
-    "infectionTotal": 3868,
+    "infectionTotal": 4027,
     "release": 3037
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 789
+      "cases": 786
     },
     {
       "name": "キャンプマクトリアス",
@@ -55,13 +55,13 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 311
+      "cases": 473
     }
   ],
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 2
+      "cases": 0
     },
     {
       "name": "キャンプマクトリアス",
@@ -81,7 +81,7 @@
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "ホワイトビーチ",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 3
+      "cases": 162
     }
   ]
 }
