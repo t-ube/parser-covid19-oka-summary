@@ -39,6 +39,7 @@ def convertNinzuu(ninzuu):
     ninzuu = ninzuu.replace('\n','')
     ninzuu = ninzuu.replace('\r','')
     ninzuu = ninzuu.replace(',','')
+    ninzuu = ninzuu.replace('，','')
     ninzuu = ninzuu.replace(u'\xa0', u'')
     ninzuu = ninzuu.replace(' ','')
     find_pattern = r"^(?P<n>\d*)人"
