@@ -1,9 +1,15 @@
 {
   "lastupdate": "2021-12-08 00:00:00",
-  "pfizer_case": 0,
-  "pfizer_serious": 0,
-  "pfizer_dead": 0,
-  "moderna_case": 1,
-  "moderna_serious": 1,
-  "moderna_dead": 0
+  "pfizer_case": 116,
+  "pfizer_serious": 37,
+  "pfizer_dead": 11,
+  "moderna_case": 11,
+  "moderna_serious": 3,
+  "moderna_dead": 0,
+  "astrazeneca_case": 0,
+  "astrazeneca_serious": 0,
+  "astrazeneca_dead": 0,
+  "unknown_case": 1,
+  "unknown_serious": 1,
+  "unknown_dead": 0
 }

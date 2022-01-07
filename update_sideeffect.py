@@ -115,19 +115,34 @@ for page in pdf.pages:
         "min_words_horizontal": 2,
     })
 
-    for table in tables:
-        localDf = pd.DataFrame(table, columns=["pfizer_case", "pfizer_serious", "pfizer_dead", "moderna_case", "moderna_serious", "moderna_dead"])
-        print(localDf)
-        for index, row in localDf.iterrows():
-            if index != 4:
-                print('index!=4')
-            else:
-                writedata['pfizer_case'] = int(row['pfizer_case'])
-                writedata['pfizer_serious'] = int(row['pfizer_serious'])
-                writedata['pfizer_dead'] = int(row['pfizer_dead'])
-                writedata['moderna_case'] = int(row['moderna_case'])
-                writedata['moderna_serious'] = int(row['moderna_serious'])
-                writedata['moderna_dead'] = int(row['moderna_dead'])
+    for index,table in enumerate(tables):
+        print(index)
+        if index == 0:
+            localDf = pd.DataFrame(table, columns=["pfizer_case", "pfizer_serious", "pfizer_dead", "moderna_case", "moderna_serious", "moderna_dead"])
+            print(localDf)
+            for index, row in localDf.iterrows():
+                if index != 4:
+                    print('index!=4')
+                else:
+                    writedata['pfizer_case'] = int(row['pfizer_case'])
+                    writedata['pfizer_serious'] = int(row['pfizer_serious'])
+                    writedata['pfizer_dead'] = int(row['pfizer_dead'])
+                    writedata['moderna_case'] = int(row['moderna_case'])
+                    writedata['moderna_serious'] = int(row['moderna_serious'])
+                    writedata['moderna_dead'] = int(row['moderna_dead'])
+        elif index == 1:
+            localDf = pd.DataFrame(table, columns=["astrazeneca_case", "astrazeneca_serious", "astrazeneca_dead", "unknown_case", "unknown_serious", "unknown_dead"])
+            print(localDf)
+            for index, row in localDf.iterrows():
+                if index != 4:
+                    print('index!=4')
+                else:
+                    writedata['astrazeneca_case'] = int(row['astrazeneca_case'])
+                    writedata['astrazeneca_serious'] = int(row['astrazeneca_serious'])
+                    writedata['astrazeneca_dead'] = int(row['astrazeneca_dead'])
+                    writedata['unknown_case'] = int(row['unknown_case'])
+                    writedata['unknown_serious'] = int(row['unknown_serious'])
+                    writedata['unknown_dead'] = int(row['unknown_dead'])
             
 print(writedata)
 
