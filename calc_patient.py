@@ -51,6 +51,6 @@ update_wfile.close()
 os.remove('./csv/oka-patient-daily.csv')
 os.remove('./csv/mmy-patient-daily.csv')
 os.remove('./csv/isg-patient-daily.csv')
-os.remove('./csv/patient.csv')
+#os.remove('./csv/patient.csv')
 
 sys.exit(0)
