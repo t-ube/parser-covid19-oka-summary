@@ -1,13 +1,13 @@
 {
-  "hospitalize": 249,
-  "wait": 3502,
-  "hotel": 500,
-  "home": 2545,
-  "checkout": 4,
-  "release": 50238,
+  "hospitalize": 258,
+  "wait": 3097,
+  "hotel": 516,
+  "home": 3640,
+  "checkout": 3,
+  "release": 50303,
   "dead": 398,
-  "patient": 6800,
+  "patient": 7514,
   "severe": 0,
-  "moderate": 115,
-  "lastupdate": "2021-01-09 12:00:00"
+  "moderate": 121,
+  "lastupdate": "2021-01-10 12:00:00"
 }
