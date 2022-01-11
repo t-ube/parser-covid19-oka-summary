@@ -29,6 +29,15 @@ def getPatientsData(source):
     saveDf = dropDf.reindex(columns=['確定日','居住地','年代','性別','状態','退院','備考','date'])
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
+def getPatientsDataV2(source):
+    df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
+    sortDf = df.sort_values('caseNo', ascending=False)
+    dropDf = sortDf.drop(columns=['caseNo', 'onsetDate', 'work', 'route', 'delete'])
+    dropDf['fixDate'] = dropDf['fixDate']+'T08:00:00.000Z'
+    dropDf.rename(columns={'sex': '性別', 'age':'年代', 'fixDate':'確定日', 'openDate':'date', 'area':'居住地'}, inplace=True)
+    saveDf = dropDf.reindex(columns=['確定日','居住地','年代','性別','date'])
+    return json.loads(saveDf.to_json(orient='records', force_ascii=False))
+
 def getPatientsSummaryData(source,first_date,fix_date):
     df = pd.read_csv(source, header=0, parse_dates=["openDate"])
     df = df[df['delete'] == 0]
@@ -76,7 +85,7 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fi
     mydict = {
         'patients': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
-            'data': getPatientsData(patients_source)
+            'data': getPatientsDataV2(patients_source)
         },
         'patients_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
