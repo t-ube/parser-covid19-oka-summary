@@ -49,15 +49,15 @@ def output_dummy(path):
     linePDF.set_fill_color(0,0,0)
     '''
 
-    linePDF.rect(38.7, 96.6, 0.25, 81.5,'F')
+    linePDF.rect(33.7, 96.6, 0.25, 81.5,'F')
     linePDF.set_fill_color(0,0,0)
-    linePDF.rect(65.5, 96.6, 0.25, 81.5,'F')
+    linePDF.rect(60.5, 96.6, 0.25, 81.5,'F')
     linePDF.set_fill_color(0,0,0)
-    linePDF.rect(77.5, 96.6, 0.25, 81.5,'F')
+    linePDF.rect(72.5, 96.6, 0.25, 81.5,'F')
     linePDF.set_fill_color(0,0,0)
-    linePDF.rect(96.9, 96.6, 0.25, 81.5,'F')
+    linePDF.rect(91.9, 96.6, 0.25, 81.5,'F')
     linePDF.set_fill_color(0,0,0)
-    linePDF.rect(105.7, 96.6, 0.25, 81.5,'F')
+    linePDF.rect(100.7, 96.6, 0.25, 81.5,'F')
     linePDF.set_fill_color(0,0,0)
 
     #for i in range(50):
