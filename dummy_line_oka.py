@@ -1,7 +1,7 @@
 from fpdf import FPDF
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
-def output_dummy(path):
+def output_dummy_TypeA(path):
     linePDF = FPDF()
     linePDF.add_page(orientation='P', format='A4')
 
@@ -63,6 +63,23 @@ def output_dummy(path):
     #for i in range(50):
     #    linePDF.set_fill_color(0,0,0)
     #    linePDF.rect(17.3, 42.3 + i*5.409, 183, 0.25,'F')
+
+    linePDF.output(path, 'F')
+
+def output_dummy_TypeB(path):
+    linePDF = FPDF()
+    linePDF.add_page(orientation='P', format='A4')
+
+    linePDF.rect(38.7, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(65.5, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(77.5, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(96.9, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(105.7, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
 
     linePDF.output(path, 'F')
 

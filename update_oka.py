@@ -73,7 +73,7 @@ urllib.request.urlretrieve(download_url, save_file)
 print("PDF downloaded at: pdf/" + find_file)
 
 resize_pdf_oka.resize(save_file, './pdf/resize_oka.pdf')
-dummy_line_oka.output_dummy('./component/dummy_line_oka.pdf')
+dummy_line_oka.output_dummy_TypeB('./component/dummy_line_oka.pdf')
 dummy_line_oka.output_mergePDF('./component/dummy_line_oka.pdf',
                                './pdf/resize_oka.pdf', './pdf/processed_latest_oka.pdf')
 
