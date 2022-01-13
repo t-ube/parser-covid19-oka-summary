@@ -42,6 +42,9 @@ def renameFile(FromName,ToName,Backup):
     return True
 
 def convertKanjiDateTime2En(kanji_datetime):
+    if kanji_datetime == None:
+        return None
+    
     s = kanji_datetime.replace('\n', '')
     print(s)
     find_pattern = r".*令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日.*"
@@ -137,14 +140,13 @@ for page in pdf.pages:
     page_crop = page.within_bbox(bounding_box)
     page_crop.to_image(resolution=200).save("./snapshot/lastupdate_vrs.png", format="PNG")
     writedata['lastupdate'] = convertKanjiDateTime2En(page_crop.extract_text())
-    
-    tables = page.extract_tables({
-        "vertical_strategy": "lines",
-        "horizontal_strategy": "lines",
-        "intersection_y_tolerance": 1,
-        "min_words_horizontal": 2,
-    })
-
-    for table in tables:
-        data2Csv_v2(table)
+    if writedata['lastupdate'] != None:
+        tables = page.extract_tables({
+            "vertical_strategy": "lines",
+            "horizontal_strategy": "lines",
+            "intersection_y_tolerance": 1,
+            "min_words_horizontal": 2,
+        })
+        for table in tables:
+            data2Csv_v2(table)
 
