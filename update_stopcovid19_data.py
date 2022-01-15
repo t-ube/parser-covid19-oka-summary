@@ -56,28 +56,35 @@ def getMainSummaryChildren(source):
     json_load = json.load(src)
     writedata = []
     writedata.append({})
-    writedata[0]['attr'] = '陽性患者数（県外感染者含む）'
+    writedata[0]['attr'] = '陽性患者数'
     writedata[0]['value'] = json_load['patient'] + json_load['release'] + json_load['dead']
     writedata[0]['children'] = []
     writedata[0]['children'].append({})
-    writedata[0]['children'][0]['attr'] = '入院中（調整中含む）'
+    writedata[0]['children'][0]['attr'] = '入院中'
     writedata[0]['children'][0]['value'] = json_load['hospitalize']
     writedata[0]['children'][0]['children'] = []
     writedata[0]['children'][0]['children'].append({})
-    writedata[0]['children'][0]['children'][0]['attr'] = 'その他'
+    writedata[0]['children'][0]['children'][0]['attr'] = '軽症・中等症'
     writedata[0]['children'][0]['children'][0]['value'] = json_load['hospitalize'] - json_load['severe']
     writedata[0]['children'][0]['children'].append({})
     writedata[0]['children'][0]['children'][1]['attr'] = '重症'
     writedata[0]['children'][0]['children'][1]['value'] = json_load['severe']
-    writedata[0]['children'][0]['children'].append({})
-    writedata[0]['children'][0]['children'][2]['attr'] = '中等症'
-    writedata[0]['children'][0]['children'][2]['value'] = json_load['moderate']
     writedata[0]['children'].append({})
-    writedata[0]['children'][1]['attr'] = '退院'
-    writedata[0]['children'][1]['value'] = json_load['release']
+    writedata[0]['children'][1]['attr'] = '宿泊療養'
+    writedata[0]['children'][1]['value'] = json_load['hotel']
     writedata[0]['children'].append({})
-    writedata[0]['children'][2]['attr'] = '死亡'
-    writedata[0]['children'][2]['value'] = json_load['dead']
+    writedata[0]['children'][2]['attr'] = '自宅療養'
+    writedata[0]['children'][2]['value'] = json_load['home']
+    writedata[0]['children'].append({})
+    writedata[0]['children'][3]['attr'] = '入院等調整中'
+    writedata[0]['children'][3]['value'] = json_load['wait']
+    writedata[0]['children'].append({})
+    writedata[0]['children'][4]['attr'] = '死亡'
+    writedata[0]['children'][4]['value'] = json_load['dead']
+    writedata[0]['children'].append({})
+    writedata[0]['children'][5]['attr'] = '退院'
+    writedata[0]['children'][5]['value'] = json_load['release']
+
     return writedata
 
 def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fix_date):
@@ -97,6 +104,8 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fi
         'lastUpdate': dt_now.strftime('%Y/%m/%d %H:%M'),
         'main_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
+            'attr': '検査実施人数',
+            'value': 0,
             'children': getMainSummaryChildren(summary_source)
         }
     }
