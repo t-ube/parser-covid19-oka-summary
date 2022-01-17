@@ -61,6 +61,14 @@ def get_pdf_typeB(file):
     pdf = pdfplumber.open('./pdf/processed_latest_oka.pdf')
     return pdf
 
+def get_pdf_typeC(file):
+    resize_pdf_oka.resize(file, './pdf/resize_oka.pdf')
+    dummy_line_oka.output_dummy_TypeC('./component/dummy_line_oka.pdf')
+    dummy_line_oka.output_mergePDF('./component/dummy_line_oka.pdf',
+                                './pdf/resize_oka.pdf', './pdf/processed_latest_oka.pdf')
+    pdf = pdfplumber.open('./pdf/processed_latest_oka.pdf')
+    return pdf
+
 def pdf_to_data(pdf):
     for page in pdf.pages:
         bounding_box = (250, 74, 400, 90)
@@ -142,6 +150,10 @@ print(writedata)
 if writedata['release'] == 0:
     writedata = pdf_to_data(get_pdf_typeB(save_file))
 print(writedata)
+if writedata['release'] == 0:
+    writedata = pdf_to_data(get_pdf_typeC(save_file))
+print(writedata)
+
 
 # 情報の保存
 update_wfile = open('./data/summary-oka.json', 'w', encoding='utf8')

@@ -83,6 +83,23 @@ def output_dummy_TypeB(path):
 
     linePDF.output(path, 'F')
 
+def output_dummy_TypeC(path):
+    linePDF = FPDF()
+    linePDF.add_page(orientation='P', format='A4')
+
+    linePDF.rect(36.7, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(63.5, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(75.5, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(94.9, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+    linePDF.rect(103.7, 96.6, 0.25, 81.5,'F')
+    linePDF.set_fill_color(0,0,0)
+
+    linePDF.output(path, 'F')
+
 def output_mergePDF(linePdfPath,sourcePdfPath,mergePdfPath):
     outputPDF = PdfFileWriter()
     sourcePDF = PdfFileReader(open(sourcePdfPath, "rb"))
