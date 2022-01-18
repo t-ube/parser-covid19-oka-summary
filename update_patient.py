@@ -279,7 +279,7 @@ def Download():
 
     for link in links:
         href = link.get('href')
-        if href and 'youseisya' in href and 'csv' in href:
+        if href and ('youseisya' in href or 'youseisha' in href) and 'csv' in href:
             file_name = href.split("/")[-1]
             file_href = href
             print(file_name)
