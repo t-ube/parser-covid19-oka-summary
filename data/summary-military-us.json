@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2021-01-18 12:00:00",
+  "lastupdate": "2021-01-19 12:00:00",
   "summary": {
-    "infectionTotal": 7827,
-    "release": 3756
+    "infectionTotal": 7953,
+    "release": 3916
   },
   "total": [
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1324
+      "cases": 1450
     }
   ],
   "today": [
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 121
+      "cases": 126
     }
   ]
 }
