@@ -8,6 +8,7 @@ import os
 import json
 import time
 import csv
+import downlod_patient
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -336,7 +337,7 @@ def rejectMissing(file_in,file_out) :
 
 def removeReturn(file_in,file_out):
     df = pd.read_csv(filepath_or_buffer=file_in,
-    encoding="ms932", sep=",")
+    encoding="utf_8_sig", sep=",")
     df = df.replace( '\n', '', regex=True)
     df.to_csv(file_out, encoding='utf_8_sig', header=False, index=False)
 
@@ -391,7 +392,7 @@ dateDf['first_case'] = dateDf['first_case'].astype('i8')
 dateDf['last_case'] = dateDf['last_case'].astype('i8')
 
 # Download patient csv
-download_file = Download()
+download_file = downlod_patient.Download_FullRecordes()
 
 # Format
 removeReturn(download_file,'./csv/remove_return.csv')
