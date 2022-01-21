@@ -41,6 +41,9 @@ def renameFile(FromName,ToName,Backup):
     return True
 
 def convertKanjiDateTime2En(kanji_datetime):
+    if kanji_datetime == None:
+        return None
+
     s = kanji_datetime.replace('\n', '')
     print(s)
     find_pattern = r".*令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日.*"
@@ -108,45 +111,47 @@ for page in pdf.pages:
     page_crop.to_image(resolution=200).save("./snapshot/lastupdate_sideeffect.png", format="PNG")
     writedata['lastupdate'] = convertKanjiDateTime2En(page_crop.extract_text())
     
-    tables = page.extract_tables({
-        "vertical_strategy": "lines",
-        "horizontal_strategy": "lines",
-        "intersection_y_tolerance": 1,
-        "min_words_horizontal": 2,
-    })
+    if writedata['lastupdate'] != None:
+        tables = page.extract_tables({
+            "vertical_strategy": "lines",
+            "horizontal_strategy": "lines",
+            "intersection_y_tolerance": 1,
+            "min_words_horizontal": 2,
+        })
 
-    for index,table in enumerate(tables):
-        print(index)
-        if index == 0:
-            localDf = pd.DataFrame(table, columns=["pfizer_case", "pfizer_serious", "pfizer_dead", "moderna_case", "moderna_serious", "moderna_dead"])
-            print(localDf)
-            for index, row in localDf.iterrows():
-                if index != 4:
-                    print('index!=4')
-                else:
-                    writedata['pfizer_case'] = int(row['pfizer_case'])
-                    writedata['pfizer_serious'] = int(row['pfizer_serious'])
-                    writedata['pfizer_dead'] = int(row['pfizer_dead'])
-                    writedata['moderna_case'] = int(row['moderna_case'])
-                    writedata['moderna_serious'] = int(row['moderna_serious'])
-                    writedata['moderna_dead'] = int(row['moderna_dead'])
-        elif index == 1:
-            localDf = pd.DataFrame(table, columns=["astrazeneca_case", "astrazeneca_serious", "astrazeneca_dead", "unknown_case", "unknown_serious", "unknown_dead"])
-            print(localDf)
-            for index, row in localDf.iterrows():
-                if index != 4:
-                    print('index!=4')
-                else:
-                    writedata['astrazeneca_case'] = int(row['astrazeneca_case'])
-                    writedata['astrazeneca_serious'] = int(row['astrazeneca_serious'])
-                    writedata['astrazeneca_dead'] = int(row['astrazeneca_dead'])
-                    writedata['unknown_case'] = int(row['unknown_case'])
-                    writedata['unknown_serious'] = int(row['unknown_serious'])
-                    writedata['unknown_dead'] = int(row['unknown_dead'])
+        for index,table in enumerate(tables):
+            print(index)
+            if index == 0:
+                localDf = pd.DataFrame(table, columns=["pfizer_case", "pfizer_serious", "pfizer_dead", "moderna_case", "moderna_serious", "moderna_dead"])
+                print(localDf)
+                for index, row in localDf.iterrows():
+                    if index != 4:
+                        print('index!=4')
+                    else:
+                        writedata['pfizer_case'] = int(row['pfizer_case'])
+                        writedata['pfizer_serious'] = int(row['pfizer_serious'])
+                        writedata['pfizer_dead'] = int(row['pfizer_dead'])
+                        writedata['moderna_case'] = int(row['moderna_case'])
+                        writedata['moderna_serious'] = int(row['moderna_serious'])
+                        writedata['moderna_dead'] = int(row['moderna_dead'])
+            elif index == 1:
+                localDf = pd.DataFrame(table, columns=["astrazeneca_case", "astrazeneca_serious", "astrazeneca_dead", "unknown_case", "unknown_serious", "unknown_dead"])
+                print(localDf)
+                for index, row in localDf.iterrows():
+                    if index != 4:
+                        print('index!=4')
+                    else:
+                        writedata['astrazeneca_case'] = int(row['astrazeneca_case'])
+                        writedata['astrazeneca_serious'] = int(row['astrazeneca_serious'])
+                        writedata['astrazeneca_dead'] = int(row['astrazeneca_dead'])
+                        writedata['unknown_case'] = int(row['unknown_case'])
+                        writedata['unknown_serious'] = int(row['unknown_serious'])
+                        writedata['unknown_dead'] = int(row['unknown_dead'])
             
 print(writedata)
 
-# 情報の保存
-update_wfile = open('./data/oka-sideeffect.json', 'w', encoding='utf8')
-json.dump(writedata, update_wfile, ensure_ascii=False, indent=2)
-update_wfile.close()
+if writedata['lastupdate'] != None:
+    # 情報の保存
+    update_wfile = open('./data/oka-sideeffect.json', 'w', encoding='utf8')
+    json.dump(writedata, update_wfile, ensure_ascii=False, indent=2)
+    update_wfile.close()
