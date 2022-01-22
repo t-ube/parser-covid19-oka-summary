@@ -111,7 +111,8 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fi
     }
 
     file = open(dest, 'w', encoding='utf-8-sig')
-    json.dump(mydict, file, indent=4, ensure_ascii=False)
+    #json.dump(mydict, file, indent=4, ensure_ascii=False)
+    json.dump(mydict, file, ensure_ascii=False)
     file.close()
 
 convertCsv2StopCovid19Json('./csv/patient.csv','./data/summary-oka.json','./data/stopcovid19-data.json', firstdate, fixdate)
