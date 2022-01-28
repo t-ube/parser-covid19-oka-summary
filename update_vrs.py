@@ -148,5 +148,9 @@ for page in pdf.pages:
             "min_words_horizontal": 2,
         })
         for table in tables:
-            data2Csv_v2(table)
+            if table != None:
+                df0 = pd.DataFrame(table)
+                print(df0)
+                if len(df0) > 2:
+                    data2Csv_v2(table)
 
