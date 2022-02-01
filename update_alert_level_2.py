@@ -10,6 +10,7 @@ import json
 import sys
 import pdfplumber
 import shutil
+import unicodedata
 
 import resize_pdf_alert_level
 import dummy_line_alert_level_2
@@ -53,7 +54,8 @@ update_rfile.close()
 lastupdate = writedata['lastupdate']
 
 def convertKanjiDateTime2En(kanji_datetime):
-    s = kanji_datetime.replace('\n', '')
+    s = unicodedata.normalize("NFKC", kanji_datetime)
+    s = s.replace('\n', '')
     print(s)
     find_pattern = r"^令和(?P<y>\d*)年(?P<m>\d*)月(?P<d>\d*)日(?P<H>\d*)時時点"
     replace_pattern = lambda date: str(2022) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
