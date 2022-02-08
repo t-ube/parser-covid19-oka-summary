@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2021-02-07 12:00:00",
+  "lastupdate": "2021-02-08 12:00:00",
   "summary": {
-    "infectionTotal": 10054,
-    "release": 9143
+    "infectionTotal": 10071,
+    "release": 9384
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 2236
+      "cases": 2326
     },
     {
       "name": "キャンプマクトリアス",
@@ -15,35 +15,35 @@
     },
     {
       "name": "普天間基地",
-      "cases": 996
+      "cases": 1020
     },
     {
       "name": "キャンプハンセン",
-      "cases": 2423
+      "cases": 2459
     },
     {
       "name": "キャンプキンザー",
-      "cases": 664
+      "cases": 694
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1378
+      "cases": 1435
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 57
+      "cases": 58
     },
     {
       "name": "キャンプコートニー",
-      "cases": 452
+      "cases": 468
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 297
+      "cases": 302
     },
     {
       "name": "トリイ通信施設",
-      "cases": 321
+      "cases": 337
     },
     {
       "name": "キャンプシールズ",
@@ -51,17 +51,17 @@
     },
     {
       "name": "その他",
-      "cases": 56
+      "cases": 57
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1108
+      "cases": 849
     }
   ],
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 13
+      "cases": 6
     },
     {
       "name": "キャンプマクトリアス",
@@ -69,19 +69,19 @@
     },
     {
       "name": "普天間基地",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプハンセン",
-      "cases": 4
+      "cases": 0
     },
     {
       "name": "キャンプキンザー",
-      "cases": 3
+      "cases": 1
     },
     {
       "name": "キャンプフォスター",
-      "cases": 0
+      "cases": 6
     },
     {
       "name": "ホワイトビーチ",
@@ -89,15 +89,15 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "トリイ通信施設",
-      "cases": 1
+      "cases": 2
     },
     {
       "name": "キャンプシールズ",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1
+      "cases": 0
     }
   ]
 }
