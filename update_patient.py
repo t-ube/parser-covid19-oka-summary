@@ -388,6 +388,9 @@ dateDf = dateDf.append(df2)
 df1 = pd.read_csv('./csv/patients_opendate_1.csv')
 dateDf = dateDf.append(df1)
 
+# correct
+dateDf.loc[dateDf['first_case'] == 88023, 'opendate'] = '2022-02-09'
+
 dateDf['first_case'] = dateDf['first_case'].astype('i8')
 dateDf['last_case'] = dateDf['last_case'].astype('i8')
 
