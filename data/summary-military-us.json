@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2021-02-09 12:00:00",
+  "lastupdate": "2021-02-10 12:00:00",
   "summary": {
-    "infectionTotal": 10086,
-    "release": 9479
+    "infectionTotal": 10141,
+    "release": 9664
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 2328
+      "cases": 2334
     },
     {
       "name": "キャンプマクトリアス",
@@ -15,35 +15,35 @@
     },
     {
       "name": "普天間基地",
-      "cases": 1021
+      "cases": 1032
     },
     {
       "name": "キャンプハンセン",
-      "cases": 2463
+      "cases": 2470
     },
     {
       "name": "キャンプキンザー",
-      "cases": 696
+      "cases": 711
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1436
+      "cases": 1444
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 58
+      "cases": 59
     },
     {
       "name": "キャンプコートニー",
-      "cases": 469
+      "cases": 473
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 303
+      "cases": 304
     },
     {
       "name": "トリイ通信施設",
-      "cases": 340
+      "cases": 341
     },
     {
       "name": "キャンプシールズ",
@@ -55,13 +55,13 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 849
+      "cases": 850
     }
   ],
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 2
+      "cases": 6
     },
     {
       "name": "キャンプマクトリアス",
@@ -69,27 +69,27 @@
     },
     {
       "name": "普天間基地",
-      "cases": 1
+      "cases": 11
     },
     {
       "name": "キャンプハンセン",
-      "cases": 4
+      "cases": 7
     },
     {
       "name": "キャンプキンザー",
-      "cases": 2
+      "cases": 15
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1
+      "cases": 8
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプコートニー",
-      "cases": 1
+      "cases": 4
     },
     {
       "name": "キャンプシュワブ",
@@ -97,7 +97,7 @@
     },
     {
       "name": "トリイ通信施設",
-      "cases": 3
+      "cases": 1
     },
     {
       "name": "キャンプシールズ",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 0
+      "cases": 1
     }
   ]
 }
