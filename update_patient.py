@@ -114,6 +114,42 @@ def convertTitle2DateTime(title):
 
     return None
 
+def convertTitle2DateTimeV2(title):
+    s = title.replace('\n', '')
+    s = s.replace(')', '）')
+    s = s.replace('(', '（')
+    s = s.replace(' ', '')
+
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
+    m = re.match(find_pattern, s)
+    if m != None:
+        replace_reiwa = lambda date: date.group('r')
+        reiwa = re.sub(find_pattern, replace_reiwa, s)
+        year = str(int(reiwa, 10) + 2018)
+
+        replace_pattern = lambda date: year + '-' + \
+            date.group('m') + '-' + date.group('d')
+        en_date = re.sub(find_pattern, replace_pattern, s)
+        tdate = datetime.datetime.strptime(en_date, '%Y-%m-%d')
+        return tdate.strftime('%Y-%m-%d')
+
+    return None
+
+def convertTitle2EndCaseV2(title):
+    s = title.replace('\n', '')
+    s = s.replace(')', '）')
+    s = s.replace('(', '（')
+    s = s.replace(' ', '')
+
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
+    m = re.match(find_pattern, s)
+    if m != None:
+        replace_pattern = lambda case: case.group('e')
+        case = re.sub(find_pattern, replace_pattern, s)
+        return int(case)
+
+    return None
+
 def convertCase498930(case):
     if case == 498930:
         return 49930
@@ -268,6 +304,7 @@ def convertTitle2EndCase(title):
 
     return None
 
+
 def Download():
     # ファイルのダウンロード
     domain = 'https://www.pref.okinawa.lg.jp'
@@ -314,6 +351,33 @@ def getOpenDate(savefile,resource):
             if date != None:
                 df = df.append({'opendate': date, 'first_case': convertMissCase(convertTitle2BeginCase(title)), 'last_case': convertTitle2EndCase(title)}, ignore_index=True)
 
+    print(df)
+    df.to_csv(savefile,encoding="'utf-8-sig",index = False)
+    return
+
+def getOpenDateV2(savefile,resource):
+    domain = 'https://www.pref.okinawa.lg.jp'
+    # url = domain + '/site/hoken/kansen/soumu/press/20201019.html'
+    url = domain + resource
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    update = soup.select_one("#tmp_update")
+
+    df = pd.DataFrame(None,columns = ['opendate' , 'first_case', 'last_case'])
+
+    liList = soup.find_all("li")
+    prev_case = 80685 #600報
+    for li in reversed(liList):
+        if li != None and li != None:
+            title = li.get_text()
+            date = convertTitle2DateTimeV2(title)
+            if date != None:
+                cur_case = convertTitle2EndCaseV2(title)
+                df = df.append({'opendate': date, 'first_case': prev_case+1, 'last_case': cur_case}, ignore_index=True)
+                prev_case = cur_case
+
+    df = df.iloc[::-1]
     print(df)
     df.to_csv(savefile,encoding="'utf-8-sig",index = False)
     return
@@ -370,7 +434,9 @@ def convertKanjiDate2EnDate(kanji_date):
     return kanji_date
 
 # Get opendate csv
-getOpenDate('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html')
+getOpenDateV2('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html')
+#getOpenDate('./csv/patients_opendate_6.csv','/site/hoken/kansen/soumu/press/20220215.html')
+#getOpenDate('./csv/patients_opendate_5.csv','/site/hoken/kansen/soumu/press/20220214.html')
 #getOpenDate('./csv/patients_opendate_4.csv','/site/hoken/kansen/soumu/press/20210914.html')
 #getOpenDate('./csv/patients_opendate_3.csv','/site/hoken/kansen/soumu/press/20210909.html')
 #getOpenDate('./csv/patients_opendate_2.csv','/site/hoken/kansen/soumu/press/20210130.html')
@@ -379,6 +445,10 @@ getOpenDate('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/pres
 # Load opendate csv
 dateDf = pd.read_csv('./csv/patients_opendate_current.csv')
 
+df6 = pd.read_csv('./csv/patients_opendate_6.csv')
+dateDf = dateDf.append(df6)
+df5 = pd.read_csv('./csv/patients_opendate_5.csv')
+dateDf = dateDf.append(df5)
 df4 = pd.read_csv('./csv/patients_opendate_4.csv')
 dateDf = dateDf.append(df4)
 df3 = pd.read_csv('./csv/patients_opendate_3.csv')
@@ -389,8 +459,7 @@ df1 = pd.read_csv('./csv/patients_opendate_1.csv')
 dateDf = dateDf.append(df1)
 
 # correct
-dateDf.loc[dateDf['first_case'] == 88023, 'opendate'] = '2022-02-09'
-
+#dateDf.loc[dateDf['first_case'] == 88023, 'opendate'] = '2022-02-09'
 dateDf['first_case'] = dateDf['first_case'].astype('i8')
 dateDf['last_case'] = dateDf['last_case'].astype('i8')
 
