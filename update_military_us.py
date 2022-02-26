@@ -63,6 +63,10 @@ writedata['today'] = []
 
 def convertKanjiDateTime2En(kanji_datetime):
     find_pattern = r"^(?P<m>\d*)月(?P<d>\d*)日 (?P<H>\d*):.*"
+    m = re.match(find_pattern, kanji_datetime)
+    if m == None:
+        print(kanji_datetime)
+        return None
     replace_pattern = lambda date: str(2021) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
     en_datetime = re.sub(find_pattern, replace_pattern, kanji_datetime)
     tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
@@ -76,40 +80,45 @@ for page in pdf.pages:
     page_crop.to_image(resolution=200).save("./snapshot/lastupdate_us.png", format="PNG")
     writedata['lastupdate'] = convertKanjiDateTime2En(page_crop.extract_text())
 
-    tables = page.extract_tables({
-        "vertical_strategy": "lines",
-        "horizontal_strategy": "lines",
-        "intersection_y_tolerance": 1,
-        "min_words_horizontal": 2,
-    })
+    if writedata['lastupdate'] != None:
 
-    for table in tables:
-        localDf = pd.DataFrame(table, columns=["場所", "昨日まで", "新規陽性者", "合計"])
-        print(localDf)
-        for index, row in localDf.iterrows():
-            if row['場所'] == None:
-                print('none')
-            elif len(row['場所']) == 0:
-                print('empty')
-            elif row['場所'] == '所属':
-                break
-            elif row['場所'].find('隔離解除') != -1:
-                writedata['summary']['release'] = int(row['合計'])
-            elif row['場所'] == '合計':
-                writedata['summary']['infectionTotal'] = int(row['合計'])
-            elif row['場所'] != '場所':
-                if row['合計'] == '':
-                    writedata['total'].append({'name': row['場所'],'cases': 0})
-                else:
-                    writedata['total'].append({'name': row['場所'],'cases': int(row['合計'])})
-                if row['新規陽性者'] == '':
-                    writedata['today'].append({'name': row['場所'],'cases': 0})
-                else:
-                    writedata['today'].append({'name': row['場所'],'cases': int(row['新規陽性者'])})
+        tables = page.extract_tables({
+            "vertical_strategy": "lines",
+            "horizontal_strategy": "lines",
+            "intersection_y_tolerance": 1,
+            "min_words_horizontal": 2,
+        })
+
+        for table in tables:
+            localDf = pd.DataFrame(table, columns=["場所", "昨日まで", "新規陽性者", "合計"])
+            print(localDf)
+            for index, row in localDf.iterrows():
+                if row['場所'] == None:
+                    print('none')
+                elif len(row['場所']) == 0:
+                    print('empty')
+                elif row['場所'] == '所属':
+                    break
+                elif row['場所'].find('隔離解除') != -1:
+                    writedata['summary']['release'] = int(row['合計'])
+                elif row['場所'] == '合計':
+                    writedata['summary']['infectionTotal'] = int(row['合計'])
+                elif row['場所'] != '場所':
+                    if row['合計'] == '':
+                        writedata['total'].append({'name': row['場所'],'cases': 0})
+                    else:
+                        writedata['total'].append({'name': row['場所'],'cases': int(row['合計'])})
+                    if row['新規陽性者'] == '':
+                        writedata['today'].append({'name': row['場所'],'cases': 0})
+                    else:
+                        writedata['today'].append({'name': row['場所'],'cases': int(row['新規陽性者'])})
         
 print(writedata)
 
-# 情報の保存
-update_wfile = open('./data/summary-military-us.json', 'w', encoding='utf8')
-json.dump(writedata, update_wfile, ensure_ascii=False, indent=2)
-update_wfile.close()
+if writedata['lastupdate'] != None:
+    # 情報の保存
+    update_wfile = open('./data/summary-military-us.json', 'w', encoding='utf8')
+    json.dump(writedata, update_wfile, ensure_ascii=False, indent=2)
+    update_wfile.close()
+else:
+    print('lastupdate is none.')
