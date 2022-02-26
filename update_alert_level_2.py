@@ -68,6 +68,91 @@ def convertDateTimeText2DateText(datetimeText):
     tdatetime = datetime.datetime.strptime(datetimeText, '%Y-%m-%d %H:%M:%S')
     return tdatetime.strftime('%Y/%m/%d')
 
+def getTypeA(localDf):
+    datamapping = False
+    for index, row in localDf.iterrows():
+        if index == 0  and str(row[3]).find('時点') != -1:
+            writedata['lastupdate'] = convertKanjiDateTime2En(str(row[3]))
+            print(writedata['lastupdate'])
+            writedata['alertIndicators']['date'].append(convertDateTimeText2DateText(writedata['lastupdate']))
+            datamapping = True
+        elif index == 1 and str(row[2]).find('新規陽性者数') != -1:
+            print(row[3])
+            writedata['alertIndicators']['patients'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 2 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 3 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['severe_bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 4 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['severe_bed_rate_ken'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 5 and str(row[2]).find('療養者数') != -1:
+            print(row[3])
+            writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
+        elif index == 6 and str(row[2]).find('経路不明') != -1:
+            print(row[3])
+            writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 7 and str(row[2]).find('陽性率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 8 and str(row[2]).find('入院率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 9 and str(row[2]).find('前週比') != -1:
+            print(row[3])
+            writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 10 and str(row[2]).find('予測ツール') != -1:
+            print(row[3])
+            if row[3] == '―':
+                writedata['alertIndicators']['predict_tool'].append(None)
+            else:
+                writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
+    return datamapping
+
+def getTypeB(localDf):
+    datamapping = False
+    for index, row in localDf.iterrows():
+        if index == 0  and str(row[3]).find('時点') != -1:
+            writedata['lastupdate'] = convertKanjiDateTime2En(str(row[3]))
+            print(writedata['lastupdate'])
+            writedata['alertIndicators']['date'].append(convertDateTimeText2DateText(writedata['lastupdate']))
+            datamapping = True
+        elif index == 2 and str(row[2]).find('新規陽性者数') != -1:
+            print(row[3])
+            writedata['alertIndicators']['patients'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 3 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 4 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['severe_bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 6 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['severe_bed_rate_ken'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 8 and str(row[2]).find('療養者数') != -1:
+            print(row[3])
+            writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
+        elif index == 10 and str(row[2]).find('経路不明') != -1:
+            print(row[3])
+            writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 12 and str(row[2]).find('陽性率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 14 and str(row[2]).find('入院率') != -1:
+            print(row[3])
+            writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 16 and str(row[2]).find('前週比') != -1:
+            print(row[3])
+            writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+        elif index == 18 and str(row[2]).find('予測ツール') != -1:
+            print(row[3])
+            if row[3] == '―':
+                writedata['alertIndicators']['predict_tool'].append(None)
+            else:
+                writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
+    return datamapping
 
 # ファイルのダウンロード
 domain = 'https://www.pref.okinawa.lg.jp'
@@ -127,45 +212,10 @@ for page in pdf.pages:
     for table in tables:
         localDf = pd.DataFrame(table)
         print(localDf)
-        for index, row in localDf.iterrows():
-            if index == 0  and str(row[3]).find('時点') != -1:
-                writedata['lastupdate'] = convertKanjiDateTime2En(str(row[3]))
-                print(writedata['lastupdate'])
-                writedata['alertIndicators']['date'].append(convertDateTimeText2DateText(writedata['lastupdate']))
-                datamapping = True
-            elif index == 1 and str(row[2]).find('新規陽性者数') != -1:
-                print(row[3])
-                writedata['alertIndicators']['patients'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 2 and str(row[2]).find('病床使用率') != -1:
-                print(row[3])
-                writedata['alertIndicators']['bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 3 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
-                print(row[3])
-                writedata['alertIndicators']['severe_bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 4 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
-                print(row[3])
-                writedata['alertIndicators']['severe_bed_rate_ken'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 5 and str(row[2]).find('療養者数') != -1:
-                print(row[3])
-                writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
-            elif index == 6 and str(row[2]).find('経路不明') != -1:
-                print(row[3])
-                writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 7 and str(row[2]).find('陽性率') != -1:
-                print(row[3])
-                writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 8 and str(row[2]).find('入院率') != -1:
-                print(row[3])
-                writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 9 and str(row[2]).find('前週比') != -1:
-                print(row[3])
-                writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-            elif index == 10 and str(row[2]).find('予測ツール') != -1:
-                print(row[3])
-                if row[3] == '―':
-                    writedata['alertIndicators']['predict_tool'].append(None)
-                else:
-                    writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
+        if len(localDf) > 10:
+            datamapping = getTypeB(localDf)
+        else:
+            datamapping = getTypeA(localDf)
 
 if datamapping == False:
     print('failed to mapping')
