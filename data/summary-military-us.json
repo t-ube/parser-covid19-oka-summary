@@ -1,49 +1,49 @@
 {
-  "lastupdate": "2021-02-27 12:00:00",
+  "lastupdate": "2021-02-28 12:00:00",
   "summary": {
-    "infectionTotal": 10676,
-    "release": 10379
+    "infectionTotal": 10714,
+    "release": 10396
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 2533
+      "cases": 2548
     },
     {
       "name": "キャンプマクトリアス",
-      "cases": 9
+      "cases": 10
     },
     {
       "name": "普天間基地",
-      "cases": 1068
+      "cases": 1069
     },
     {
       "name": "キャンプハンセン",
-      "cases": 2553
+      "cases": 2561
     },
     {
       "name": "キャンプキンザー",
-      "cases": 770
+      "cases": 771
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1498
+      "cases": 1502
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 71
+      "cases": 73
     },
     {
       "name": "キャンプコートニー",
-      "cases": 501
+      "cases": 504
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 313
+      "cases": 315
     },
     {
       "name": "トリイ通信施設",
-      "cases": 362
+      "cases": 363
     },
     {
       "name": "キャンプシールズ",
@@ -61,7 +61,7 @@
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 36
+      "cases": 15
     },
     {
       "name": "キャンプマクトリアス",
@@ -69,7 +69,7 @@
     },
     {
       "name": "普天間基地",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプハンセン",
@@ -77,23 +77,23 @@
     },
     {
       "name": "キャンプキンザー",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1
+      "cases": 4
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 1
+      "cases": 2
     },
     {
       "name": "キャンプコートニー",
-      "cases": 1
+      "cases": 3
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 3
+      "cases": 2
     },
     {
       "name": "トリイ通信施設",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1
+      "cases": 0
     }
   ]
 }
