@@ -57,7 +57,7 @@ def getMainSummaryChildren(source):
     writedata = []
     writedata.append({})
     writedata[0]['attr'] = '陽性患者数'
-    writedata[0]['value'] = json_load['patient'] + json_load['release'] + json_load['dead']
+    writedata[0]['value'] = json_load['patient']
     writedata[0]['children'] = []
     writedata[0]['children'].append({})
     writedata[0]['children'][0]['attr'] = '入院中'
