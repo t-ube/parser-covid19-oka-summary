@@ -69,6 +69,14 @@ def get_pdf_typeC(file):
     pdf = pdfplumber.open('./pdf/processed_latest_oka.pdf')
     return pdf
 
+def get_pdf_typeD(file):
+    resize_pdf_oka.resize(file, './pdf/resize_oka.pdf')
+    dummy_line_oka.output_dummy_TypeD('./component/dummy_line_oka.pdf')
+    dummy_line_oka.output_mergePDF('./component/dummy_line_oka.pdf',
+                                './pdf/resize_oka.pdf', './pdf/processed_latest_oka.pdf')
+    pdf = pdfplumber.open('./pdf/processed_latest_oka.pdf')
+    return pdf
+
 def pdf_to_data(pdf):
     for page in pdf.pages:
         bounding_box = (250, 74, 400, 90)
@@ -84,6 +92,7 @@ def pdf_to_data(pdf):
         })
         for table in tables:
             localDf = pd.DataFrame(table)
+            print(localDf)
             pos = -1
             for index, row in localDf.iterrows():
                 if row[0] != None and row[0].find('入院中') != -1:
@@ -99,24 +108,109 @@ def pdf_to_data(pdf):
                     print('none')
                 elif len(row[pos]) == 0:
                     if (index == 2 or index == 3) and row[pos+2] != None and row[pos+2].find('中等') != -1:
+                        if row[pos+3] == None:
+                            return writedata
                         writedata['moderate'] = int(row[pos+3])
                 elif row[pos].find('入院中') != -1:
+                    if row[pos+1] == '' or row[pos+3] == '':
+                        return writedata
                     writedata['hospitalize'] = int(row[pos+1])
                     writedata['severe'] = int(row[pos+3])
                 elif row[pos].find('調整中') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['wait'] = int(row[pos+1])
                 elif row[pos].find('宿泊') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['hotel'] = int(row[pos+1])
                 elif row[pos].find('自宅') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['home'] = int(row[pos+1])
                 elif row[pos].find('解除確認') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['checkout'] = int(row[pos+1])
                 elif row[pos].find('勧告解除') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['release'] = int(row[pos+1])
                 elif row[pos].find('死亡') != -1:
+                    if row[pos+1] == '':
+                        return writedata
                     writedata['dead'] = int(row[pos+1])
     writedata['patient'] = writedata['hospitalize'] + writedata['wait'] + \
         writedata['hotel'] + writedata['home'] + writedata['checkout']
+    return writedata
+
+def pdf_to_dataV2(pdf):
+    for page in pdf.pages:
+        bounding_box = (250, 74, 400, 90)
+        page_crop = page.within_bbox(bounding_box)
+        page_crop.to_image(resolution=200).save(
+            "./snapshot/lastupdate_oka.png", format="PNG")
+        writedata['lastupdate'] = convertKanjiDateTime2En(page_crop.extract_text())
+        tables = page.extract_tables({
+            "vertical_strategy": "lines",
+            "horizontal_strategy": "lines",
+            "intersection_y_tolerance": 1,
+            "min_words_horizontal": 2,
+        })
+        for table in tables:
+            localDf = pd.DataFrame(table)
+            print(localDf)
+            pos = -1
+            for index, row in localDf.iterrows():
+                if row[0] != None and row[0].find('入院中') != -1:
+                    pos = 0
+                    break
+                elif row[1] != None and row[1].find('入院中') != -1:
+                    pos = 1
+                    break
+            if pos == -1:
+                break
+            for index, row in localDf.iterrows():
+                if row[pos] == None:
+                    print('none')
+                elif len(row[pos]) == 0:
+                    if (index == 2 or index == 3) and row[pos+2] != None and row[pos+2].find('中等') != -1:
+                        if row[pos+3] == None:
+                            return writedata
+                        writedata['moderate'] = int(row[pos+3])
+                elif row[pos].find('入院中') != -1:
+                    if row[pos+1] == '' or row[pos+3] == '':
+                        return writedata
+                    writedata['hospitalize'] = int(row[pos+1])
+                    writedata['severe'] = int(row[pos+3])
+                elif row[pos].find('調整中') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['wait'] = int(row[pos+1])
+                elif row[pos].find('宿泊') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['hotel'] = int(row[pos+1])
+                elif row[pos].find('自宅') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['home'] = int(row[pos+1])
+                elif row[pos].find('解除確認') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['checkout'] = int(row[pos+1])
+                elif row[pos].find('勧告解除') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['release'] = int(row[pos+1])
+                elif row[pos].find('死亡') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['dead'] = int(row[pos+1])
+                elif row[pos].find('実数') != -1:
+                    if row[pos+1] == '':
+                        return writedata
+                    writedata['patient'] = int(row[pos+1])
     return writedata
 
 # ファイルのダウンロード
@@ -152,6 +246,9 @@ if writedata['release'] == 0:
 print(writedata)
 if writedata['release'] == 0:
     writedata = pdf_to_data(get_pdf_typeC(save_file))
+print(writedata)
+if writedata['release'] == 0:
+    writedata = pdf_to_dataV2(get_pdf_typeD(save_file))
 print(writedata)
 
 
