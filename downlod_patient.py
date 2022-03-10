@@ -48,7 +48,7 @@ def Union(dest,unionList):
     return
 
 def Download_FullRecordes():
-    list = ['youseishaitiran_00001-40000.csv']
+    list = ['youseishaitiran_1-50000.csv']
     filename = Download(list)
     unionList = []
     if filename != None:
