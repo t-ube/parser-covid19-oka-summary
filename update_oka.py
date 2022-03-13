@@ -49,6 +49,17 @@ def convertKanjiDateTime2En(kanji_datetime):
         return en_datetime
     return None
 
+def getNumber(text):
+    if text == None:
+        return None
+    find_pattern = r"^(?P<number>\d*).*"
+    m = re.match(find_pattern, text)
+    if m != None:
+        def replace_pattern(conv): return str(conv.group('number'))
+        convText = re.sub(find_pattern, replace_pattern, text)
+        return int(convText)
+    return None
+
 def convertKanjiDateTime2EnV2(kanji_datetime):
     if kanji_datetime == None:
         return None
@@ -307,7 +318,7 @@ def pdf_to_dataV3(pdf):
                 elif row[pos].find('実数') != -1:
                     if row[pos+1] == '':
                         return writedata
-                    writedata['patient'] = int(row[pos+1])
+                    writedata['patient'] = getNumber(row[pos+1])
     return writedata
 
 # ファイルのダウンロード
