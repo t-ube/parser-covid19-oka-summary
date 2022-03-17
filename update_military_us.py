@@ -28,9 +28,14 @@ def renameFile(FromName,ToName,Backup):
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # ファイルのダウンロード
+'''
 domain = 'https://www.pref.okinawa.lg.jp'
 #url = domain + '/site/hoken/chiikihoken/kekkaku/covid19_hasseijoukyou.html'
 url = domain + '/site/hoken/kansen/soumu/covid19_hasseijoukyou.html'
+'''
+domain = 'https://www.pref.okinawa.lg.jp'
+url = domain + '/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html'
+
 response = requests.get(url)
 
 soup = BeautifulSoup(response.text, "html.parser")
@@ -38,7 +43,7 @@ links = soup.find(id="tmp_contents").find_all('a')
 
 for link in links:
     href = link.get('href')
-    if href and 'pdf' in href:
+    if href and 'pdf' in href and ('kichi' in href or 'kiti' in href):
         file_name = href.split("/")[-1]
         file_href = href
         print(file_name)
