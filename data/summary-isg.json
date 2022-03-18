@@ -1,9 +1,9 @@
 {
-  "hospitalize": 12,
-  "home": 165,
+  "hospitalize": 11,
+  "home": 158,
   "hotel": 24,
-  "patient": 201,
-  "release": 3405,
-  "total": 3606,
-  "lastupdate": "2022-03-17 00:00:00"
+  "patient": 193,
+  "release": 3435,
+  "total": 3628,
+  "lastupdate": "2022-03-18 00:00:00"
 }
