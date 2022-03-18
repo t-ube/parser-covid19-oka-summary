@@ -33,8 +33,6 @@ jobs:
         python3 update_isg.py
         python3 update_alert_level_2.py
         python3 update_military_us.py
-        python3 update_vrs.py
-        python3 update_sideeffect.py
         python3 update_oka.py
         python3 update_stopcovid19_data.py
     - name: Commit files
