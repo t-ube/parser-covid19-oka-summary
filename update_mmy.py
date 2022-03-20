@@ -43,9 +43,13 @@ def convertNinzuu(ninzuu):
     ninzuu = ninzuu.replace(u'\xa0', u'')
     ninzuu = ninzuu.replace(' ','')
     find_pattern = r"^(?P<n>\d*)人"
-    replace_pattern = lambda count: count.group('n')
-    counts = re.sub(find_pattern, replace_pattern, ninzuu)
-    return int(counts)
+    m = re.match(find_pattern, ninzuu)
+    if m != None:
+        def replace_pattern(count): return str(count.group('n'))
+        convText = re.sub(find_pattern, replace_pattern, ninzuu)
+        if convText != None and convText != "":
+            return int(convText)
+    return 0
 
 def Download():
     domain = 'https://www.city.miyakojima.lg.jp'
