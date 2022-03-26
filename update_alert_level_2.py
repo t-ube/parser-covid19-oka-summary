@@ -171,15 +171,12 @@ for link in links:
             print('Find bun')
         elif 'handan' in file_name:
             print('Find handan')
-        elif 'keikai' in file_name:
-            print('Find keikai')
-            if file_name[0] == '2':
-                print('Find 2xxx')
-            else:
-                file_href = href
-                find_file = file_name
-                print('OK:'+find_file)
-                break
+        elif 'keikaireberu' in file_name:
+            print('Find keikaireberu')
+            file_href = href
+            find_file = file_name
+            print('OK:'+find_file)
+            break
 
 download_url = domain + file_href
 urllib.request.urlretrieve(download_url, './pdf/' + find_file)
