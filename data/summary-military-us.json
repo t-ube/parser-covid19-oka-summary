@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2021-03-25 12:00:00",
+  "lastupdate": "2021-03-26 12:00:00",
   "summary": {
-    "infectionTotal": 11354,
-    "release": 11153
+    "infectionTotal": 11384,
+    "release": 11209
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 2810
+      "cases": 2824
     },
     {
       "name": "キャンプマクトリアス",
@@ -15,19 +15,19 @@
     },
     {
       "name": "普天間基地",
-      "cases": 1155
+      "cases": 1158
     },
     {
       "name": "キャンプハンセン",
-      "cases": 2628
+      "cases": 2630
     },
     {
       "name": "キャンプキンザー",
-      "cases": 806
+      "cases": 807
     },
     {
       "name": "キャンプフォスター",
-      "cases": 1611
+      "cases": 1618
     },
     {
       "name": "ホワイトビーチ",
@@ -35,15 +35,15 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 527
+      "cases": 528
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 324
+      "cases": 325
     },
     {
       "name": "トリイ通信施設",
-      "cases": 384
+      "cases": 385
     },
     {
       "name": "キャンプシールズ",
@@ -51,17 +51,17 @@
     },
     {
       "name": "その他",
-      "cases": 62
+      "cases": 63
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 903
+      "cases": 902
     }
   ],
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 8
+      "cases": 14
     },
     {
       "name": "キャンプマクトリアス",
@@ -69,19 +69,19 @@
     },
     {
       "name": "普天間基地",
-      "cases": 7
+      "cases": 3
     },
     {
       "name": "キャンプハンセン",
-      "cases": 4
+      "cases": 2
     },
     {
       "name": "キャンプキンザー",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "キャンプフォスター",
-      "cases": 11
+      "cases": 7
     },
     {
       "name": "ホワイトビーチ",
@@ -89,15 +89,15 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 3
+      "cases": 1
     },
     {
       "name": "キャンプシュワブ",
-      "cases": 0
+      "cases": 1
     },
     {
       "name": "トリイ通信施設",
-      "cases": 2
+      "cases": 1
     },
     {
       "name": "キャンプシールズ",
@@ -105,11 +105,11 @@
     },
     {
       "name": "その他",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1
+      "cases": 0
     }
   ]
 }
