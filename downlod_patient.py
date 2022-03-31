@@ -6,6 +6,36 @@ import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+def DownloadAllCSV(excludeList):
+    file_list = []
+
+    # ファイルのダウンロード
+    domain = 'https://www.pref.okinawa.lg.jp'
+    #url = domain + '/site/hoken/chiikihoken/kekkaku/press/20200214_covid19_pr1.html'
+    url = domain + '/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html'
+    response = requests.get(url)
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    links = soup.find(id="tmp_contents").find_all('a')
+
+    for link in links:
+        href = link.get('href')
+        if href and ('youseisya' in href or 'youseisha' in href) and 'csv' in href:
+            file_name = href.split("/")[-1]
+            if file_name not in excludeList:
+                file_href = href
+                print(file_name)
+                file_list.append(file_name)
+                download_url = domain + file_href
+                download_file = './csv/' + file_name
+                if os.path.isfile(download_file):
+                    print("CSV downloaded skip: csv/" + file_name)
+                else:
+                    urllib.request.urlretrieve(download_url, download_file)
+                    print("CSV downloaded at: csv/" + file_name)
+    
+    return file_list
+
 def Download(excludeList):
     # ファイルのダウンロード
     domain = 'https://www.pref.okinawa.lg.jp'
@@ -48,12 +78,13 @@ def Union(dest,unionList):
     return
 
 def Download_FullRecordes():
-    list = ['youseishaitiran_1-50000.csv','20220329youseishaitiran-75000.csv']
-    filename = Download(list)
+    excludeList = ['youseishaitiran_1-50000.csv']
+    download_list = DownloadAllCSV(excludeList)
     unionList = []
-    if filename != None:
-        unionList.append(filename)
-    for l in list:
+    if download_list != None:
+        for l in download_list:
+            unionList.append(l)
+    for l in excludeList:
         unionList.append(l)
     Union("./csv/union_youseishaitiran.csv", unionList)
     return "./csv/union_youseishaitiran.csv"
