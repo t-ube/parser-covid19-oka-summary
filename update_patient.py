@@ -120,7 +120,7 @@ def convertTitle2DateTimeV2(title):
     s = s.replace('(', '（')
     s = s.replace(' ', '')
 
-    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<sp>\s*)(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
     m = re.match(find_pattern, s)
     if m != None:
         replace_reiwa = lambda date: date.group('r')
@@ -141,7 +141,7 @@ def convertTitle2EndCaseV2(title):
     s = s.replace('(', '（')
     s = s.replace(' ', '')
 
-    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
+    find_pattern = r".*第(?P<n>\d*)報：令和(?P<r>\d*)年(?P<m>\d*)月(?P<sp>\s*)(?P<d>\d*)日（~(?P<e>\d*)例目）.*"
     m = re.match(find_pattern, s)
     if m != None:
         replace_pattern = lambda case: case.group('e')
