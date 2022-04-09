@@ -70,11 +70,16 @@ def Download(excludeList):
 def Union(dest,unionList):
     data_list = []
     for filename in unionList:
-        data_list.append(pd.read_csv(
-        filepath_or_buffer='./csv/'+filename,
-        encoding="ms932", sep=","))
-        df = pd.concat(data_list, sort=False)
-        df.to_csv(dest,index=False)
+        df = pd.read_csv(
+            filepath_or_buffer='./csv/'+filename,
+            encoding="ms932", sep=",",
+            names=["caseNo","sex","age","onsetDate","fixDate","area","work","route"],
+            header=None)
+        df = df[(df['caseNo'] != '確定陽性者')]
+        print(df)
+        data_list.append(df)
+    df = pd.concat(data_list,ignore_index=True,axis=0,sort=False)
+    df.to_csv(dest,index=False)
     return
 
 def Download_FullRecordes():
