@@ -83,7 +83,7 @@ def Union(dest,unionList):
     return
 
 def Download_FullRecordes():
-    excludeList = ['youseishaitiran_1-50000.csv']
+    excludeList = ['20220415youseishaitiran-60000.csv']
     download_list = DownloadAllCSV(excludeList)
     unionList = []
     if download_list != None:
