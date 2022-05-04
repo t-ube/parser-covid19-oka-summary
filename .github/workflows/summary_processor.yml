@@ -29,7 +29,6 @@ jobs:
       run: |
         python3 update_patient.py
         python3 calc_patient.py
-        python3 update_mmy.py
         python3 update_isg.py
         python3 update_alert_level_2.py
         python3 update_military_us.py
