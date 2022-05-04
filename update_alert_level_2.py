@@ -216,7 +216,7 @@ for page in pdf.pages:
 
 if datamapping == False:
     print('failed to mapping')
-    sys.exit(1)
+    sys.exit(0)#sys.exit(1)
 elif datetime.datetime.strptime(lastupdate, '%Y-%m-%d %H:%M:%S') < datetime.datetime.strptime(writedata['lastupdate'], '%Y-%m-%d %H:%M:%S'):
     # 更新情報の保存
     update_wfile = open('./data/alert-indicators-2.json', 'w', encoding='utf8')
