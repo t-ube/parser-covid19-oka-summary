@@ -11,11 +11,14 @@ dt_20 = dt_now.replace(hour=11, minute=0, second=0)
 
 if dt_now > dt_20:
     fixdate = dt_now.strftime('%Y-%m-%d')
+    before60day= dt_now + datetime.timedelta(days=-60)
 else:
     tempdate = dt_now + datetime.timedelta(days=-1)
     fixdate = tempdate.strftime('%Y-%m-%d')
+    before60day= dt_now + datetime.timedelta(days=-60)
 
 firstdate = '2020-02-14'
+filterdate = before60day.strftime('%Y-%m-%d')
 
 def getPatientsData(source):
     df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
@@ -38,10 +41,20 @@ def getPatientsDataV2(source):
     saveDf = dropDf.reindex(columns=['確定日','居住地','年代','性別','date'])
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
-def getPatientsSummaryData(source,first_date,fix_date):
+def getPatientsDataV3(source,start_date):
+    df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
+    dayFilterDf = df[df['fixDate'] >= start_date]
+    sortDf = dayFilterDf.sort_values('caseNo', ascending=False)
+    dropDf = sortDf.drop(columns=['caseNo', 'onsetDate', 'work', 'route', 'delete'])
+    dropDf['fixDate'] = dropDf['fixDate']+'T08:00:00.000Z'
+    dropDf.rename(columns={'sex': '性別', 'age':'年代', 'fixDate':'確定日', 'openDate':'date', 'area':'居住地'}, inplace=True)
+    saveDf = dropDf.reindex(columns=['確定日','居住地','年代','性別','date'])
+    return json.loads(saveDf.to_json(orient='records', force_ascii=False))
+
+def getPatientsSummaryData(source,start_date,fix_date):
     df = pd.read_csv(source, header=0, parse_dates=["openDate"])
     df = df[df['delete'] == 0]
-    daterange = pd.date_range(first_date, fix_date)
+    daterange = pd.date_range(start_date, fix_date)
     saveDf = pd.DataFrame({'日付':[], '小計':[] }, index=[])
     for date in daterange:
         dateText = date.strftime('%Y-%m-%d')
@@ -87,16 +100,16 @@ def getMainSummaryChildren(source):
 
     return writedata
 
-def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fix_date):
+def convertCsv2StopCovid19Json(patients_source,summary_source,dest,start_date,fix_date):
     dt_now = datetime.datetime.now()
     mydict = {
         'patients': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
-            'data': getPatientsDataV2(patients_source)
+            'data': getPatientsDataV3(patients_source,start_date)
         },
         'patients_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
-            'data': getPatientsSummaryData(patients_source,first_date,fix_date)
+            'data': getPatientsSummaryData(patients_source,start_date,fix_date)
         },
         'inspections_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M')
@@ -115,4 +128,4 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,fi
     json.dump(mydict, file, ensure_ascii=False)
     file.close()
 
-convertCsv2StopCovid19Json('./csv/patient.csv','./data/summary-oka.json','./data/stopcovid19-data.json', firstdate, fixdate)
+convertCsv2StopCovid19Json('./csv/patient.csv','./data/summary-oka.json','./data/stopcovid19-data.json', filterdate, fixdate)

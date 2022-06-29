@@ -114,6 +114,21 @@ def convertTitle2DateTime(title):
 
     return None
 
+def convertReiwa2Year(date):
+    find_pattern = r".*令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日.*"
+    m = re.match(find_pattern, date)
+    if m != None:
+        replace_reiwa = lambda date: date.group('r')
+        reiwa = re.sub(find_pattern, replace_reiwa, date)
+        year = str(int(reiwa, 10) + 2018)
+
+        replace_pattern = lambda date: year + '-' + \
+            date.group('m') + '-' + date.group('d')
+        en_date = re.sub(find_pattern, replace_pattern, date)
+        tdate = datetime.datetime.strptime(en_date, '%Y-%m-%d')
+        return tdate.strftime('%Y-%m-%d')
+    return date
+
 def convertTitle2DateTimeV2(title):
     s = title.replace('\n', '')
     s = s.replace(')', '）')
@@ -367,7 +382,7 @@ def getOpenDateV2(savefile,resource):
     df = pd.DataFrame(None,columns = ['opendate' , 'first_case', 'last_case'])
 
     liList = soup.find_all("li")
-    prev_case = 80685 #600報
+    prev_case = 174925 #700報
     for li in reversed(liList):
         if li != None and li != None:
             title = li.get_text()
@@ -431,10 +446,11 @@ def convertKanjiDate2EnDate(kanji_date):
         tdate = datetime.datetime.strptime(en_date, '%Y-%m-%d')
         return tdate.strftime('%Y-%m-%d')
 
-    return kanji_date
+    return convertReiwa2Year(kanji_date)
 
 # Get opendate csv
 getOpenDateV2('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html')
+#getOpenDateV2('./csv/patients_opendate_7.csv','/site/hoken/kansen/soumu/press/20220622.html')
 #getOpenDate('./csv/patients_opendate_6.csv','/site/hoken/kansen/soumu/press/20220215.html')
 #getOpenDate('./csv/patients_opendate_5.csv','/site/hoken/kansen/soumu/press/20220214.html')
 #getOpenDate('./csv/patients_opendate_4.csv','/site/hoken/kansen/soumu/press/20210914.html')
@@ -445,6 +461,8 @@ getOpenDateV2('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/pr
 # Load opendate csv
 dateDf = pd.read_csv('./csv/patients_opendate_current.csv')
 
+df7 = pd.read_csv('./csv/patients_opendate_7.csv')
+dateDf = dateDf.append(df7)
 df6 = pd.read_csv('./csv/patients_opendate_6.csv')
 dateDf = dateDf.append(df6)
 df5 = pd.read_csv('./csv/patients_opendate_5.csv')
