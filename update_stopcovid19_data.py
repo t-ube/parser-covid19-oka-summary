@@ -100,7 +100,7 @@ def getMainSummaryChildren(source):
 
     return writedata
 
-def convertCsv2StopCovid19Json(patients_source,summary_source,dest,start_date,fix_date):
+def convertCsv2StopCovid19Json(patients_source,summary_source,dest,first_date,start_date,fix_date):
     dt_now = datetime.datetime.now()
     mydict = {
         'patients': {
@@ -109,7 +109,7 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,start_date,fi
         },
         'patients_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M'),
-            'data': getPatientsSummaryData(patients_source,start_date,fix_date)
+            'data': getPatientsSummaryData(patients_source,first_date,fix_date)
         },
         'inspections_summary': {
             'date': dt_now.strftime('%Y/%m/%d %H:%M')
@@ -128,4 +128,4 @@ def convertCsv2StopCovid19Json(patients_source,summary_source,dest,start_date,fi
     json.dump(mydict, file, ensure_ascii=False)
     file.close()
 
-convertCsv2StopCovid19Json('./csv/patient.csv','./data/summary-oka.json','./data/stopcovid19-data.json', filterdate, fixdate)
+convertCsv2StopCovid19Json('./csv/patient.csv','./data/summary-oka.json','./data/stopcovid19-data.json', firstdate, filterdate, fixdate)
