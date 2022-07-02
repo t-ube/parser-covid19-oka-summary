@@ -74,6 +74,20 @@ def convertKanjiDateTime2EnV2(kanji_datetime):
         return en_datetime
     return None
 
+def convertKanjiDateTime2EnV3(kanji_datetime):
+    if kanji_datetime == None:
+        return None
+    find_pattern = r"^令和(?P<reiwa>\d*)年(?P<m>\d*)月(?P<d>\d*)日.*"
+    m = re.match(find_pattern, kanji_datetime)
+    if m != None:
+        def replace_pattern(date): return str(int(date.group('reiwa'))+2018
+            ) + '-' + date.group('m') + '-' + date.group('d') + ' ' + '12:00:00'
+        en_datetime = re.sub(find_pattern, replace_pattern, kanji_datetime)
+        tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
+        en_datetime = tdatetime.strftime('%Y-%m-%d %H:%M:%S')
+        return en_datetime
+    return None
+
 def get_pdf_typeA(file):
     resize_pdf_oka.resize(file, './pdf/resize_oka.pdf')
     dummy_line_oka.output_dummy_TypeA('./component/dummy_line_oka.pdf')
@@ -112,6 +126,10 @@ def get_pdf_typeE(file):
     dummy_line_oka.output_mergePDF('./component/dummy_line_oka.pdf',
                                 './pdf/resize_oka.pdf', './pdf/processed_latest_oka.pdf')
     pdf = pdfplumber.open('./pdf/processed_latest_oka.pdf')
+    return pdf
+
+def get_pdf_typeF(file):
+    pdf = pdfplumber.open(file)
     return pdf
 
 def pdf_to_data(pdf):
@@ -321,32 +339,83 @@ def pdf_to_dataV3(pdf):
                     writedata['patient'] = getNumber(row[pos+1])
     return writedata
 
+def pdf_to_dataV4(pdf):
+    page = pdf.pages[0]
+    bounding_box = (680, 58, 810, 74)
+    page_crop = page.within_bbox(bounding_box)
+    page_crop.to_image(resolution=200).save(
+        "./snapshot/lastupdate_oka.png", format="PNG")
+    writedata['lastupdate'] = convertKanjiDateTime2EnV3(page_crop.extract_text())
+    tables = page.extract_tables({
+        "vertical_strategy": "lines",
+        "horizontal_strategy": "lines",
+        "intersection_y_tolerance": 1,
+        "min_words_horizontal": 2,
+    })
+    for table in tables:
+        localDf = pd.DataFrame(table)
+        print(localDf)
+        pos = -1
+        for index, row in localDf.iterrows():
+            if row[11] != None and row[11].find('累計療養者数') != -1:
+                pos = 0
+                break
+        if pos == -1:
+            continue
+        for index, row in localDf.iterrows():
+            if index == 3:
+                print(row)
+                writedata['hospitalize'] = getNumber(row[2])
+                writedata['severe'] = getNumber(row[3])
+                writedata['moderate'] = getNumber(row[4])
+                writedata['wait'] = getNumber(row[5])
+                writedata['hotel'] = getNumber(row[6])
+                writedata['home'] = getNumber(row[7])
+                writedata['checkout'] = getNumber(row[8])
+                writedata['dead'] = getNumber(row[9])
+                writedata['release'] = getNumber(row[10])
+                writedata['patient'] = getNumber(row[11])
+    return writedata
+
+
 # ファイルのダウンロード
-domain = 'https://www.pref.okinawa.lg.jp'
-url = domain + '/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html'
-response = requests.get(url)
+def downloadFile():
+    domain = 'https://www.pref.okinawa.lg.jp'
+    url = domain + '/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html'
+    response = requests.get(url)
 
-soup = BeautifulSoup(response.text, "html.parser")
-links = soup.find(id="tmp_contents").find_all('a')
+    soup = BeautifulSoup(response.text, "html.parser")
+    links = soup.find(id="tmp_contents").find_all('a')
 
-for link in links:
-    href = link.get('href')
-    if href and 'pdf' in href:
-        file_name = href.split("/")[-1]
-        print('Find pdf:'+file_name)
-        if 'hou' in file_name:
-            print('Find hou')
-            file_href = href
-            find_file = file_name
-            print('OK:'+find_file)
-            break
+    for link in links:
+        href = link.get('href')
+        if href and 'pdf' in href:
+            file_name = href.split("/")[-1]
+            print('Find pdf:'+file_name)
+            if 'hou' in file_name:
+                print('Find hou')
+                file_href = href
+                find_file = file_name
+                print('OK:'+find_file)
+                break
 
-download_url = domain + file_href
-save_file = './pdf/' + find_file
+    download_url = domain + file_href
+    save_file = './pdf/' + find_file
 
-urllib.request.urlretrieve(download_url, save_file)
-print("PDF downloaded at: pdf/" + find_file)
+    if os.path.isfile(save_file):
+        print("PDF downloaded skip: csv/" + file_name)
+    else:
+        urllib.request.urlretrieve(download_url, save_file)
+        print("PDF downloaded at: csv/" + file_name)
 
+    return save_file
+
+save_file = downloadFile()
+
+writedata = pdf_to_dataV4(get_pdf_typeF(save_file))
+print(writedata)
+
+'''
 writedata = pdf_to_data(get_pdf_typeA(save_file))
 print(writedata)
 if writedata['release'] == 0:
@@ -359,8 +428,7 @@ if writedata['release'] == 0:
     writedata = pdf_to_dataV2(get_pdf_typeD(save_file))
 if writedata['release'] == 0:
     writedata = pdf_to_dataV3(get_pdf_typeE(save_file))
-print(writedata)
-
+'''
 
 # 情報の保存
 update_wfile = open('./data/summary-oka.json', 'w', encoding='utf8')
