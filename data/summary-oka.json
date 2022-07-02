@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "hospitalize": 281,
   "wait": 1,
   "hotel": 544,
@@ -10,4 +11,17 @@
   "severe": 8,
   "moderate": 124,
   "lastupdate": "2022-07-02 12:00:00"
+=======
+  "hospitalize": 0,
+  "wait": 0,
+  "hotel": 0,
+  "home": 0,
+  "checkout": 0,
+  "release": 0,
+  "dead": 0,
+  "patient": 0,
+  "severe": 0,
+  "moderate": 0,
+  "lastupdate": null
+>>>>>>> b73d0f473a765ce2cffbada8bb42bbee7890af1d
 }
