@@ -52,6 +52,7 @@ def convertKanjiDateTime2En(kanji_datetime):
 def getNumber(text):
     if text == None:
         return None
+    text = text.replace(',', '')
     find_pattern = r"^(?P<number>\d*).*"
     m = re.match(find_pattern, text)
     if m != None:
