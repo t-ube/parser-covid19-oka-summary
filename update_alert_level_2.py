@@ -69,6 +69,7 @@ def convertDateTimeText2DateText(datetimeText):
     return tdatetime.strftime('%Y/%m/%d')
 
 def getTypeA(localDf):
+    print('getTypeA')
     datamapping = False
     for index, row in localDf.iterrows():
         if index == 0  and str(row[3]).find('時点') != -1:
@@ -111,7 +112,20 @@ def getTypeA(localDf):
                 writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
     return datamapping
 
+def checkNoneData(param):
+    data = re.search(r'－', param)
+    if data != None:
+        return True
+    dataList = re.findall("\d+\.\d+", param)
+    if dataList != None:
+        return False
+    data = re.sub("\\D", "", param)
+    if data != None:
+        return False
+    return True
+
 def getTypeB(localDf):
+    print('getTypeB')
     datamapping = False
     for index, row in localDf.iterrows():
         if index == 0  and str(row[3]).find('時点') != -1:
@@ -127,28 +141,49 @@ def getTypeB(localDf):
             writedata['alertIndicators']['bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 4 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
             print(row[3])
-            writedata['alertIndicators']['severe_bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['severe_bed_rate'].append(None)
+            else:
+                writedata['alertIndicators']['severe_bed_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 6 and str(row[2]).find('重症') != -1 and str(row[2]).find('病床使用率') != -1:
             print(row[3])
-            writedata['alertIndicators']['severe_bed_rate_ken'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['severe_bed_rate_ken'].append(None)
+            else:
+                writedata['alertIndicators']['severe_bed_rate_ken'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 8 and str(row[2]).find('療養者数') != -1:
             print(row[3])
-            writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['recuperation'].append(None)
+            else:
+                writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
         elif index == 10 and str(row[2]).find('経路不明') != -1:
             print(row[3])
-            writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['unknown_route_rate7days'].append(None)
+            else:
+                writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 12 and str(row[2]).find('陽性率') != -1:
             print(row[3])
-            writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['positive_rate7days'].append(None)
+            else:
+                writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 14 and str(row[2]).find('入院率') != -1:
             print(row[3])
-            writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['hospitalized_rate'].append(None)
+            else:
+                writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 16 and str(row[2]).find('前週比') != -1:
             print(row[3])
-            writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
+            if checkNoneData(row[3]):
+                writedata['alertIndicators']['lastweek_rate'].append(None)
+            else:
+                writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
         elif index == 18 and str(row[2]).find('予測ツール') != -1:
             print(row[3])
-            if row[3] == '―':
+            if checkNoneData(row[3]):
                 writedata['alertIndicators']['predict_tool'].append(None)
             else:
                 writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
