@@ -378,6 +378,43 @@ def pdf_to_dataV4(pdf):
                 writedata['patient'] = getNumber(row[11])
     return writedata
 
+def pdf_to_dataV5(pdf):
+    page = pdf.pages[0]
+    bounding_box = (640, 54, 810, 74)
+    page_crop = page.within_bbox(bounding_box)
+    page_crop.to_image(resolution=200).save(
+        "./snapshot/lastupdate_oka.png", format="PNG")
+    writedata['lastupdate'] = convertKanjiDateTime2EnV3(page_crop.extract_text())
+    tables = page.extract_tables({
+        "vertical_strategy": "lines",
+        "horizontal_strategy": "lines",
+        "intersection_y_tolerance": 1,
+        "min_words_horizontal": 2,
+    })
+    for table in tables:
+        localDf = pd.DataFrame(table)
+        print(localDf)
+        pos = -1
+        for index, row in localDf.iterrows():
+            if row[1] != None and row[1].find('累計療養者数') != -1:
+                pos = 0
+                break
+        if pos == -1:
+            continue
+        for index, row in localDf.iterrows():
+            if index == 3:
+                print(row)
+                writedata['patient'] = getNumber(row[1])
+                writedata['hospitalize'] = getNumber(row[2])
+                writedata['severe'] = getNumber(row[3])
+                writedata['moderate'] = getNumber(row[4])
+                writedata['wait'] = getNumber(row[5])
+                writedata['hotel'] = getNumber(row[6])
+                writedata['home'] = getNumber(row[7])
+                writedata['checkout'] = getNumber(row[8])
+                writedata['release'] = getNumber(row[9])
+                writedata['dead'] = getNumber(row[10])
+    return writedata
 
 # ファイルのダウンロード
 def downloadFile():
@@ -413,7 +450,7 @@ def downloadFile():
 
 save_file = downloadFile()
 
-writedata = pdf_to_dataV4(get_pdf_typeF(save_file))
+writedata = pdf_to_dataV5(get_pdf_typeF(save_file))
 print(writedata)
 
 '''
