@@ -26,7 +26,25 @@ def renameFile(FromName,ToName,Backup):
     os.rename(FromName,ToName)
     return True
 
+def convertKanjiDateTime2En(kanji_datetime):
+    find_pattern = r"^(?P<m>\d*)月(?P<d>\d*)日 (?P<H>\d*):.*"
+    m = re.match(find_pattern, kanji_datetime)
+    if m == None:
+        print(kanji_datetime)
+        return None
+    replace_pattern = lambda date: str(2021) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
+    en_datetime = re.sub(find_pattern, replace_pattern, kanji_datetime)
+    tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
+    en_datetime = tdatetime.strftime('%Y-%m-%d %H:%M:%S')
+    return en_datetime
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+writedata = {}
+writedata['lastupdate'] = ''
+writedata['summary'] = {'infectionTotal': 0, 'release': 0}
+writedata['total'] = []
+writedata['today'] = []
 
 # ファイルのダウンロード
 '''
@@ -42,17 +60,26 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 links = soup.find(id="tmp_contents").find_all('a')
 
-foundFile = False
+foundFilePDF = False
+foundFilePNG = False
 
 for link in links:
     href = link.get('href')
     if href and 'pdf' in href and ('kichi' in href or 'kiti' in href):
         file_name = href.split("/")[-1]
         file_href = href
-        foundFile = True
+        foundFilePDF = True
         print(file_name)
 
-if foundFile is True:
+for link in links:
+    href = link.get('href')
+    if href and 'png' in href and ('kichi' in href or 'kiti' in href):
+        file_name = href.split("/")[-1]
+        file_href = href
+        foundFilePNG = True
+        print(file_name)
+
+if foundFilePDF is True:
     download_url = domain + file_href
     urllib.request.urlretrieve(download_url, './pdf/' + file_name)
     print("PDF downloaded at: pdf/" + file_name)
@@ -61,26 +88,6 @@ if foundFile is True:
     dummy_line_us.output_mergePDF('./component/dummy_line_us.pdf', './pdf/resize_us.pdf', './pdf/processed_latest_us.pdf')
     pdf = pdfplumber.open('./pdf/processed_latest_us.pdf')
 
-writedata = {}
-writedata['lastupdate'] = ''
-writedata['summary'] = {'infectionTotal': 0, 'release': 0}
-writedata['total'] = []
-writedata['today'] = []
-
-def convertKanjiDateTime2En(kanji_datetime):
-    find_pattern = r"^(?P<m>\d*)月(?P<d>\d*)日 (?P<H>\d*):.*"
-    m = re.match(find_pattern, kanji_datetime)
-    if m == None:
-        print(kanji_datetime)
-        return None
-    replace_pattern = lambda date: str(2021) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
-    en_datetime = re.sub(find_pattern, replace_pattern, kanji_datetime)
-    tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
-    en_datetime = tdatetime.strftime('%Y-%m-%d %H:%M:%S')
-    return en_datetime
-
-if foundFile is True:
-    
     for page in pdf.pages:
 
         bounding_box = (310, 60, 400, 90)
@@ -120,7 +127,12 @@ if foundFile is True:
                             writedata['today'].append({'name': row['場所'],'cases': 0})
                         else:
                             writedata['today'].append({'name': row['場所'],'cases': int(row['新規陽性者'])})
-        
+
+elif foundFilePNG is True:
+    download_url = domain + file_href
+    urllib.request.urlretrieve(download_url, './pdf/' + file_name)
+    print("PNG downloaded at: pdf/" + file_name)
+
 print(writedata)
 
 if writedata['lastupdate'] != None:
