@@ -405,15 +405,15 @@ def pdf_to_dataV5(pdf):
             if index == 3:
                 print(row)
                 writedata['patient'] = getNumber(row[1])
-                writedata['hospitalize'] = getNumber(row[2])
-                writedata['severe'] = getNumber(row[3])
-                writedata['moderate'] = getNumber(row[4])
-                writedata['wait'] = getNumber(row[5])
-                writedata['hotel'] = getNumber(row[6])
-                writedata['home'] = getNumber(row[7])
-                writedata['checkout'] = getNumber(row[8])
-                writedata['release'] = getNumber(row[9])
-                writedata['dead'] = getNumber(row[10])
+                writedata['hospitalize'] = getNumber(row[3])
+                writedata['severe'] = getNumber(row[4])
+                writedata['moderate'] = getNumber(row[5])
+                writedata['wait'] = getNumber(row[6])
+                writedata['hotel'] = getNumber(row[7])
+                writedata['home'] = getNumber(row[8])
+                writedata['checkout'] = getNumber(row[9])
+                writedata['release'] = getNumber(row[10])
+                writedata['dead'] = getNumber(row[11])
     return writedata
 
 # ファイルのダウンロード
