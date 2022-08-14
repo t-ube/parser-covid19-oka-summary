@@ -21,6 +21,7 @@ firstdate = '2020-02-14'
 filterdate = before60day.strftime('%Y-%m-%d')
 
 def getPatientsData(source):
+    print('getPatientsData')
     df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
     sortDf = df.sort_values('caseNo', ascending=False)
     dropDf = sortDf.drop(columns=['caseNo', 'onsetDate', 'work', 'route', 'delete'])
@@ -33,6 +34,7 @@ def getPatientsData(source):
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
 def getPatientsDataV2(source):
+    print('getPatientsDataV2')
     df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
     sortDf = df.sort_values('caseNo', ascending=False)
     dropDf = sortDf.drop(columns=['caseNo', 'onsetDate', 'work', 'route', 'delete'])
@@ -42,7 +44,8 @@ def getPatientsDataV2(source):
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
 def getPatientsDataV3(source,start_date):
-    df = pd.read_csv(source, encoding='utf_8_sig', sep=",")
+    print('getPatientsDataV3')
+    df = pd.read_csv(source, encoding='utf_8_sig', sep=",", dtype=pd.StringDtype())
     dayFilterDf = df[df['fixDate'] >= start_date]
     sortDf = dayFilterDf.sort_values('caseNo', ascending=False)
     dropDf = sortDf.drop(columns=['caseNo', 'onsetDate', 'work', 'route', 'delete'])
@@ -52,7 +55,8 @@ def getPatientsDataV3(source,start_date):
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
 def getPatientsSummaryData(source,start_date,fix_date):
-    df = pd.read_csv(source, header=0, parse_dates=["openDate"])
+    print('getPatientsSummaryData')
+    df = pd.read_csv(source, header=0, parse_dates=["openDate"], dtype={'work': str, 'route': str})
     df = df[df['delete'] == 0]
     daterange = pd.date_range(start_date, fix_date)
     saveDf = pd.DataFrame({'日付':[], '小計':[] }, index=[])
@@ -65,6 +69,7 @@ def getPatientsSummaryData(source,start_date,fix_date):
     return json.loads(saveDf.to_json(orient='records', force_ascii=False))
 
 def getMainSummaryChildren(source):
+    print('getMainSummaryChildren')
     src = open(source, 'r')
     json_load = json.load(src)
     writedata = []
