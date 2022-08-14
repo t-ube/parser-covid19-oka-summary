@@ -157,36 +157,26 @@ def getTypeC(localDf):
                 writedata['alertIndicators']['recuperation'].append(None)
             else:
                 writedata['alertIndicators']['recuperation'].append(int(re.sub("\\D", "", row[3])))
-        elif index == 10 and (len(row) > 2) and str(row[2]).find('経路不明') != -1:
-            print(row[3])
-            if (len(row) > 3) and checkNoneData(row[3]):
-                writedata['alertIndicators']['unknown_route_rate7days'].append(None)
-            else:
-                writedata['alertIndicators']['unknown_route_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-        elif index == 12 and str(row[2]).find('陽性率') != -1:
-            print(row[3])
-            if (len(row) > 3) and checkNoneData(row[3]):
-                writedata['alertIndicators']['positive_rate7days'].append(None)
-            else:
-                writedata['alertIndicators']['positive_rate7days'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-        elif index == 14 and str(row[2]).find('入院率') != -1:
+        elif index == 10 and str(row[2]).find('入院率') != -1:
             print(row[3])
             if (len(row) > 3) and checkNoneData(row[3]):
                 writedata['alertIndicators']['hospitalized_rate'].append(None)
             else:
                 writedata['alertIndicators']['hospitalized_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-        elif index == 16 and str(row[2]).find('前週比') != -1:
+        elif index == 12 and str(row[2]).find('前週比') != -1:
             print(row[3])
             if (len(row) > 3) and checkNoneData(row[3]):
                 writedata['alertIndicators']['lastweek_rate'].append(None)
             else:
                 writedata['alertIndicators']['lastweek_rate'].append(float(re.findall("\d+\.\d+", row[3])[0]))
-        elif index == 18 and str(row[2]).find('予測ツール') != -1:
+        elif index == 14 and str(row[2]).find('予測ツール') != -1:
             print(row[3])
             if (len(row) > 3) and checkNoneData(row[3]):
                 writedata['alertIndicators']['predict_tool'].append(None)
             else:
                 writedata['alertIndicators']['predict_tool'].append(int(re.sub("\\D", "", row[3])))
+    writedata['alertIndicators']['unknown_route_rate7days'].append(None)
+    writedata['alertIndicators']['positive_rate7days'].append(None)
     return datamapping
 
 def getTypeB(localDf):
