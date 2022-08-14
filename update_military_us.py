@@ -27,13 +27,14 @@ def renameFile(FromName,ToName,Backup):
     return True
 
 def convertKanjiDateTime2En(kanji_datetime):
-    find_pattern = r"^(?P<m>\d*)月(?P<d>\d*)日 (?P<H>\d*):.*"
-    m = re.match(find_pattern, kanji_datetime)
+    s = kanji_datetime.replace('　',' ').replace('：',':').replace('（','')
+    find_pattern = r"令和(?P<r>\d*)年(?P<m>\d*)月(?P<d>\d*)日 (?P<H>\d*):.*"
+    m = re.search(find_pattern, s)
     if m == None:
-        print(kanji_datetime)
+        print(s)
         return None
-    replace_pattern = lambda date: str(2021) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
-    en_datetime = re.sub(find_pattern, replace_pattern, kanji_datetime)
+    replace_pattern = lambda date: str(2018+int(date.group('r'))) + '-' + date.group('m') + '-' + date.group('d') + ' ' + date.group('H') + ':00:00'
+    en_datetime = re.sub(find_pattern, replace_pattern, s)
     tdatetime = datetime.datetime.strptime(en_datetime, '%Y-%m-%d %H:%M:%S')
     en_datetime = tdatetime.strftime('%Y-%m-%d %H:%M:%S')
     return en_datetime
@@ -63,6 +64,8 @@ links = soup.find(id="tmp_contents").find_all('a')
 foundFilePDF = False
 foundFilePNG = False
 
+#'20220813kichiichiran'
+
 for link in links:
     href = link.get('href')
     if href and 'pdf' in href and ('kichi' in href or 'kiti' in href):
@@ -71,13 +74,14 @@ for link in links:
         foundFilePDF = True
         print(file_name)
 
-for link in links:
-    href = link.get('href')
-    if href and 'png' in href and ('kichi' in href or 'kiti' in href):
-        file_name = href.split("/")[-1]
-        file_href = href
-        foundFilePNG = True
-        print(file_name)
+if foundFilePDF is False:
+    for link in links:
+        href = link.get('href')
+        if href and 'png' in href and ('kichi' in href or 'kiti' in href):
+            file_name = href.split("/")[-1]
+            file_href = href
+            foundFilePNG = True
+            print(file_name)
 
 if foundFilePDF is True:
     download_url = domain + file_href
@@ -90,7 +94,7 @@ if foundFilePDF is True:
 
     for page in pdf.pages:
 
-        bounding_box = (310, 60, 400, 90)
+        bounding_box = (310, 60, 480, 90)
         page_crop = page.within_bbox(bounding_box)
         page_crop.to_image(resolution=200).save("./snapshot/lastupdate_us.png", format="PNG")
         writedata['lastupdate'] = convertKanjiDateTime2En(page_crop.extract_text())
@@ -134,7 +138,7 @@ elif foundFilePNG is True:
     print("PNG downloaded at: pdf/" + file_name)
 
 print(writedata)
-
+'''
 if writedata['lastupdate'] != None:
     # 情報の保存
     update_wfile = open('./data/summary-military-us.json', 'w', encoding='utf8')
@@ -142,3 +146,4 @@ if writedata['lastupdate'] != None:
     update_wfile.close()
 else:
     print('lastupdate is none.')
+'''
