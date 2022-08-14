@@ -138,7 +138,6 @@ elif foundFilePNG is True:
     print("PNG downloaded at: pdf/" + file_name)
 
 print(writedata)
-'''
 if writedata['lastupdate'] != None:
     # 情報の保存
     update_wfile = open('./data/summary-military-us.json', 'w', encoding='utf8')
@@ -146,4 +145,3 @@ if writedata['lastupdate'] != None:
     update_wfile.close()
 else:
     print('lastupdate is none.')
-'''
