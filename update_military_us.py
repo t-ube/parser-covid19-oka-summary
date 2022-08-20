@@ -109,8 +109,8 @@ if foundFilePDF is True:
             })
 
             for table in tables:
+                print(table)
                 localDf = pd.DataFrame(table, columns=["場所", "昨日まで", "新規陽性者", "合計"])
-                print(localDf)
                 for index, row in localDf.iterrows():
                     if row['場所'] == None:
                         print('none')

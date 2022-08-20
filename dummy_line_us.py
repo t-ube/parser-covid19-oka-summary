@@ -15,7 +15,14 @@ def output_dummy(path):
     linePDF.set_fill_color(0,0,0)
     linePDF.rect(178.7, 33.9, 0.25, 127.4,'F')
     linePDF.set_fill_color(0,0,0)
-    linePDF.rect(30.3, 160.1, 150.4, 0.25,'F')
+    #linePDF.rect(30.3, 153.5, 150.4, 0.25,'F')
+    for num in range(16):
+        if num > 5:
+            temp = 160.1 - (7.7 * num)
+        else:
+            temp = 160.1 - (7.4 * num)
+        linePDF.rect(30.3, temp, 150.4, 0.25,'F')
+
     linePDF.set_fill_color(0,0,0)
 
     #for i in range(20):
