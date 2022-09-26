@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2022-09-25 12:00:00",
+  "lastupdate": "2022-09-26 12:00:00",
   "summary": {
-    "infectionTotal": 20784,
-    "release": 20707
+    "infectionTotal": 20785,
+    "release": 20735
   },
   "total": [
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1232
+      "cases": 1233
     }
   ],
   "today": [
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 2
+      "cases": 1
     }
   ]
 }
