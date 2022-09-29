@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2022-09-28 12:00:00",
+  "lastupdate": "2022-09-29 12:00:00",
   "summary": {
-    "infectionTotal": 20798,
-    "release": 20746
+    "infectionTotal": 20800,
+    "release": 20749
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 5819
+      "cases": 5821
     },
     {
       "name": "キャンプマクトリアス",
@@ -61,7 +61,7 @@
   "today": [
     {
       "name": "嘉手納基地",
-      "cases": 0
+      "cases": 2
     },
     {
       "name": "キャンプマクトリアス",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 4
+      "cases": 0
     }
   ]
 }
