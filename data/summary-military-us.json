@@ -1,13 +1,13 @@
 {
-  "lastupdate": "2022-10-03 12:00:00",
+  "lastupdate": "2022-10-07 12:00:00",
   "summary": {
-    "infectionTotal": 20817,
-    "release": 20763
+    "infectionTotal": 20842,
+    "release": 20783
   },
   "total": [
     {
       "name": "嘉手納基地",
-      "cases": 5841
+      "cases": 5855
     },
     {
       "name": "キャンプマクトリアス",
@@ -15,27 +15,27 @@
     },
     {
       "name": "普天間基地",
-      "cases": 1957
+      "cases": 1958
     },
     {
       "name": "キャンプハンセン",
-      "cases": 3705
+      "cases": 3712
     },
     {
       "name": "キャンプキンザー",
-      "cases": 1521
+      "cases": 1522
     },
     {
       "name": "キャンプフォスター",
-      "cases": 3498
+      "cases": 3506
     },
     {
       "name": "ホワイトビーチ",
-      "cases": 204
+      "cases": 205
     },
     {
       "name": "キャンプコートニー",
-      "cases": 1156
+      "cases": 1162
     },
     {
       "name": "キャンプシュワブ",
@@ -55,7 +55,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1224
+      "cases": 1211
     }
   ],
   "today": [
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 4
+      "cases": 2
     }
   ]
 }
