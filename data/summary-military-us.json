@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2022-10-20 12:00:00",
+  "lastupdate": "2022-10-21 12:00:00",
   "summary": {
     "infectionTotal": 20875,
-    "release": 20853
+    "release": 20854
   },
   "total": [
     {
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 8
+      "cases": 0
     }
   ]
 }

@@ -7,7 +7,6 @@ import pdfplumber
 import pandas as pd
 import dummy_line_houdouteikyo as dummyLine
 import datetime
-import gc
 import json
 
 
@@ -29,14 +28,6 @@ def findDaiHouData(kanji_datetime):
         'day': int(m.group('d')),
         'date': tdate.strftime('%Y-%m-%d')
     }
-
-
-# 報道提供資料をフォーマットする
-def formatedHoudouFileTypeA(houdouFile):
-    dummyLine.output_dummy_typeA('./component/dummy_line_houdouteikyo.pdf')
-    dummyLine.output_mergePDF('./component/dummy_line_houdouteikyo.pdf',
-        houdouFile, './pdf/processed_houdouteikyo.pdf')
-    return './pdf/processed_houdouteikyo.pdf'
 
 
 # 報道提供ファイルのダウンロード
@@ -115,7 +106,6 @@ def makeOpenDateData():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     lis = soup.find_all('li')
-    #df = pd.DataFrame(None,columns = ['opendate' , 'first_case', 'last_case'])
     for li in lis:
         info = findDaiHouData(li.text)
         if info is not None and info['hou'] > 840:
@@ -131,15 +121,9 @@ def makeOpenDateData():
                 if data == None:
                     print('ERROR')
                 else:
-                    #df = df.append({'opendate': info['date'], 'first_case': data['min'], 'last_case': data['max']}, ignore_index=True)
                     data['lastupdate'] = info['date']
                     return data
     return None
-
-    #df.to_csv(dest, encoding='utf_8_sig',index=False)
-    #del df
-    #gc.collect()
-
 
 writedata = makeOpenDateData()
 
