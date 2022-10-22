@@ -3,6 +3,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 import pandas as pd
 import os
+import gc
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,11 +80,15 @@ def Union(dest,unionList):
         print(df)
         data_list.append(df)
     df = pd.concat(data_list,ignore_index=True,axis=0,sort=False)
-    df.to_csv(dest,index=False)
+    # Nan値のせいでメモリ使用量が跳ね上がるのでいずれ使う
+    #df = df.fillna('null')
+    df.to_csv(dest,encoding="utf_8_sig",index=False)
+    del df
+    gc.collect()
     return
 
 def Download_FullRecordes():
-    excludeList = ['20220415youseishaitiran-60000.csv']
+    excludeList = ['20220725youseishaitiran-60000.csv']
     download_list = DownloadAllCSV(excludeList)
     unionList = []
     if download_list != None:

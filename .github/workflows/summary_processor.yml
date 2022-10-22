@@ -27,12 +27,13 @@ jobs:
         brew install freetype imagemagick
     - name: Build Summary
       run: |
+        python3 download_docs_houdouteikyo.py
         python3 update_patient.py
         python3 calc_patient.py
         python3 update_isg.py
         python3 update_alert_level_2.py
         python3 update_military_us.py
-        python3 update_oka.py
+        python3 update_oka_2.py
         python3 update_stopcovid19_data.py
     - name: Commit files
       run: |

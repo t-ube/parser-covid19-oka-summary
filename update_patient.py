@@ -10,6 +10,7 @@ import time
 import csv
 import downlod_patient
 
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 def convertKanjiDateTime2En(kanji_datetime):
@@ -417,7 +418,7 @@ def rejectMissing(file_in,file_out) :
 def removeReturn(file_in,file_out):
     df = pd.read_csv(filepath_or_buffer=file_in,
     encoding="utf_8_sig", sep=",")
-    df = df.replace( '\n', '', regex=True)
+    df = df.replace('\n', '', regex=True)
     df.to_csv(file_out, encoding='utf_8_sig', header=False, index=False)
 
 def convertKanjiDate2EnDate(kanji_date):
@@ -448,8 +449,10 @@ def convertKanjiDate2EnDate(kanji_date):
 
     return convertReiwa2Year(kanji_date)
 
+
 # Get opendate csv
 getOpenDateV2('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/press/20200214_covid19_pr1.html')
+#getOpenDateV2('./csv/patients_opendate_8.csv','/site/hoken/kansen/soumu/press/20220831.html')
 #getOpenDateV2('./csv/patients_opendate_7.csv','/site/hoken/kansen/soumu/press/20220622.html')
 #getOpenDate('./csv/patients_opendate_6.csv','/site/hoken/kansen/soumu/press/20220215.html')
 #getOpenDate('./csv/patients_opendate_5.csv','/site/hoken/kansen/soumu/press/20220214.html')
@@ -459,8 +462,11 @@ getOpenDateV2('./csv/patients_opendate_current.csv','/site/hoken/kansen/soumu/pr
 #getOpenDate('./csv/patients_opendate_x.csv','/site/hoken/kansen/soumu/press/20201019.html')
 
 # Load opendate csv
-dateDf = pd.read_csv('./csv/patients_opendate_current.csv')
-
+dateDf = pd.read_csv('./csv/patients_opendate_r040927.csv')
+df9 = pd.read_csv('./csv/patients_opendate_current.csv')
+dateDf = dateDf.append(df9)
+df8 = pd.read_csv('./csv/patients_opendate_8.csv')
+dateDf = dateDf.append(df8)
 df7 = pd.read_csv('./csv/patients_opendate_7.csv')
 dateDf = dateDf.append(df7)
 df6 = pd.read_csv('./csv/patients_opendate_6.csv')
@@ -475,6 +481,7 @@ df2 = pd.read_csv('./csv/patients_opendate_2.csv')
 dateDf = dateDf.append(df2)
 df1 = pd.read_csv('./csv/patients_opendate_1.csv')
 dateDf = dateDf.append(df1)
+print(dateDf)
 
 # correct
 #dateDf.loc[dateDf['first_case'] == 88023, 'opendate'] = '2022-02-09'
@@ -501,7 +508,21 @@ for index, row in dateDf.iterrows():
 masterDf = masterDf.reindex(columns=['caseNo','sex','age','onsetDate','fixDate','openDate','area','work','route','delete'])
 masterDf = masterDf.drop_duplicates(subset='caseNo')
 masterDf = masterDf.sort_values('caseNo', ascending=True)
+
+masterDf.loc[masterDf['age'] == '00歳','age']='10歳未満'
+masterDf.loc[masterDf['age'] == '01～04歳','age']='10歳未満'
+masterDf.loc[masterDf['age'] == '05～09歳','age']='10歳未満'
+masterDf.loc[masterDf['age'] == '10～19歳','age']='10代'
+masterDf.loc[masterDf['age'] == '20～29歳','age']='20代'
+masterDf.loc[masterDf['age'] == '30～39歳','age']='30代'
+masterDf.loc[masterDf['age'] == '40～49歳','age']='40代'
+masterDf.loc[masterDf['age'] == '50～59歳','age']='50代'
+masterDf.loc[masterDf['age'] == '60～64歳','age']='60代'
+masterDf.loc[masterDf['age'] == '65～69歳','age']='60代'
+masterDf.loc[masterDf['age'] == '70～79歳','age']='70代'
+masterDf.loc[masterDf['age'] == '80～89歳','age']='80代'
 print(masterDf)
+
 masterDf.to_csv('./csv/patient.csv', encoding='utf_8_sig', header=True, index=False)
 os.remove('./csv/rejected_youseisyaitiran.csv')
 os.remove('./csv/remove_return.csv')
