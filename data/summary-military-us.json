@@ -1,8 +1,8 @@
 {
-  "lastupdate": "2022-11-07 12:00:00",
+  "lastupdate": "2022-11-09 12:00:00",
   "summary": {
-    "infectionTotal": 20897,
-    "release": 20890
+    "infectionTotal": 20903,
+    "release": 20892
   },
   "total": [
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 1195
+      "cases": 1201
     }
   ],
   "today": [
@@ -89,7 +89,7 @@
     },
     {
       "name": "キャンプコートニー",
-      "cases": 1
+      "cases": 0
     },
     {
       "name": "キャンプシュワブ",
@@ -109,7 +109,7 @@
     },
     {
       "name": "不明(確認中含む）",
-      "cases": 0
+      "cases": 2
     }
   ]
 }
